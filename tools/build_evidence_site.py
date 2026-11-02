@@ -285,4 +285,4 @@ def build_index(hero_block: str) -> str:
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit("Archived v1 design builder. Edit the current static site in site/; see README.md.")

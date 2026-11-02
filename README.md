@@ -1,25 +1,24 @@
 # Erfan Pirjahandideh · Evidence Portfolio
 
-Static portfolio and public CV for **erfanpj.com**. The source also supports the GitHub Pages project path `/portfolio/`. Only `site/` is served; it does not need Node, a database, remote fonts, or a build service.
+Static portfolio and two-page CV for [erfanpj.com](https://erfanpj.com/). GitHub Pages serves only `site/`. The original artwork is adapted for the visitor’s viewport. The contact form is first-party HTML on the same page; the [Google Apps Script mailer](contact/README.md) handles human verification and delivers to the owner.
 
-- `site/index.html` — complete homepage, project cases, local artwork, evidence and contact.
-- `site/Erfan-Pirjahandideh-CV.pdf` — two-page public CV.
-- [Design record](DESIGN.md) — selected direction, original assets and interaction contract.
-- [Image credits](site/assets/ATTRIBUTION.md) — public project screenshot sources and font licences.
+- [Design decision and interaction contract](DESIGN.md)
+- [Editable CV](cv/Erfan-Pirjahandideh-CV.docx), [plain text](cv/Erfan-Pirjahandideh-CV.txt), and [public PDF](site/Erfan-Pirjahandideh-CV.pdf)
+- [Image credits](site/assets/ATTRIBUTION.md)
 
 ## Preview and verify
 
 ```powershell
 python -m http.server 8791 --bind 127.0.0.1 --directory site
+node tools/test_contact.cjs
+node tools/smoke_release.cjs
 python tools/link_audit.py
 ```
 
-Preview at <http://127.0.0.1:8791/>. The audit checks internal files and fragments, then probes the public destinations. LinkedIn may reject automated requests; the audit reports that limit separately. Use `node tools/capture_review.mjs` on Windows for screenshots at the Pages base path.
+The browser check requires Playwright and Chromium; set `PLAYWRIGHT_MODULE` or `CHROME_BIN` to select local installations. It checks the whole hero at 12 viewport sizes, 144 × 90 previews, motion preferences, navigation, published PDF bytes and form states. The simulated transport never sends mail. Personal data is not included in release evidence.
 
-With Playwright and Chromium available, `node tools/smoke_release.cjs` serves the site at both URL bases and checks 320–1440px widths, keyboard controls, focus return, motion, project evidence, local media and the hash of the public PDF. Optional environment variables `PLAYWRIGHT_MODULE` and `CHROME_BIN` can select an existing local installation.
-
-The public HTML is committed explicitly. To reproduce it after a change to the generator, run `python tools/build_evidence_site.py`. Its input is the public design handoff in `design/`, and it reuses the original vector artwork for the phone layout. The interaction code and responsive refinements are maintained in `site/`.
+Edit the public site in `site/`. The original direction boards and original one-off builders document the first release; they are not inputs for regenerating the current public HTML. Update `tools/build_cv.py` when CV facts change, export the Word master to PDF, check both pages, and update the expected PDF fingerprint in the smoke check.
 
 ## Release
 
-The existing GitHub Pages workflow deploys `site/` from `main`. Publish reviewed source through the normal repository process. The GitHub Pages custom-domain setting and the registrar's website records are separate from pushing a review branch. Verify the apex over HTTPS, the projects, and the same PDF bytes at the final address before declaring a release live.
+The Pages workflow publishes `site/` from main. Verify the custom-domain HTTPS response, assets, real CAPTCHA challenge and reviewed PDF at the final address. An inbox delivery test is separate from a successful build and must use synthetic data.

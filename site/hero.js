@@ -2,28 +2,23 @@
 (() => {
   const desktop = document.querySelector('#hero-scene'), phone = document.querySelector('#mobile-hero');
   const frame = document.querySelector('.heroFrame'), motion = matchMedia('(prefers-reduced-motion: reduce)');
-  const play = [...document.querySelectorAll('#hero-play,#mobile-hero-play')];
-  let paused = motion.matches;
+  const preference = document.querySelector('#reduce-motion');
+  let selected = false;
+  try { selected = localStorage.getItem('epj-reduce-animation') === 'yes'; } catch {}
   function renderMotion() {
-    for (const node of [desktop, phone]) node?.classList.toggle('still', paused);
-    for (const button of play) {
-      button.dataset.state = paused ? 'paused' : 'playing';
-      button.textContent = paused ? 'Play scene' : 'Pause scene';
-      button.removeAttribute('aria-pressed'); // The changing action name announces the state.
-      if (motion.matches) {
-        button.textContent = 'Static scene';
-        button.disabled = true;
-        button.title = 'Your device requests reduced motion.';
-      } else { button.disabled = false; button.removeAttribute('title'); }
-    }
+    for (const node of [desktop, phone]) node?.classList.toggle('still', selected || motion.matches);
+    preference.checked = selected || motion.matches;
+    preference.disabled = motion.matches;
+    preference.title = motion.matches ? 'Your device requests reduced motion.' : '';
   }
-  play.forEach(b => b.addEventListener('click', () => { paused = !paused; renderMotion(); }));
-  motion.addEventListener('change', e => { paused = e.matches; renderMotion(); });
+  preference.addEventListener('change', () => { selected = preference.checked; try { localStorage.setItem('epj-reduce-animation', selected ? 'yes' : 'no'); } catch {} renderMotion(); });
+  motion.addEventListener('change', renderMotion);
   renderMotion();
+  const visible=new IntersectionObserver(items=>items.forEach(i=>i.target.classList.toggle('scene-away',!i.isIntersecting)));
+  for(const node of [desktop,phone]) if(node)visible.observe(node);
   function fit() {
     if (!frame || !frame.clientWidth) return;
-    const scale = frame.clientWidth / 1440;
-    frame.style.setProperty('--r', scale); frame.style.height = (900 * scale) + 'px';
+    frame.style.setProperty('--r', Math.min(frame.clientWidth / 1440, frame.clientHeight / 824, 1));
   }
   if (frame) { new ResizeObserver(fit).observe(frame); fit(); }
 
