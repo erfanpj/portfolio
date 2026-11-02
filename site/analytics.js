@@ -131,7 +131,7 @@
       window.gtag('event', 'file_download', {send_to:id, file_name:'Erfan-Pirjahandideh-CV.pdf', file_extension:'pdf'});
     } else if (projects.has(href)) {
       window.gtag('event', 'select_content', {
-        send_to: id, content_type: href.startsWith('#') ? 'case_study' : 'project_demo', item_id: projects.get(href)
+        send_to: id, content_type: href.startsWith('#') ? 'case_study' : 'project_demo', content_id: projects.get(href)
       });
     }
   }

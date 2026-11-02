@@ -25,6 +25,8 @@ The [GA4 property for erfanpj.com](https://analytics.google.com/analytics/web/#/
 
 Run `node tools/check_analytics.cjs` to check consent, event selection and withdrawal. With `--real-tag` the check loads Google’s public library and intercepts its collection requests locally.
 
+In Explorations, break down `select_content` by **Content ID** for the project and **Content type** for a demo or a case study.
+
 ## Release
 
 The Pages workflow publishes `site/` from main. Verify the custom-domain HTTPS response, assets, real CAPTCHA challenge and reviewed PDF at the final address. An inbox delivery test is separate from a successful build and must use synthetic data.
