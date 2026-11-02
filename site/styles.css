@@ -219,6 +219,34 @@ main {
   margin-top: 0.35rem;
 }
 
+.more-projects {
+  max-width: var(--max);
+  margin: 2rem auto 0;
+  padding: 1.25rem 1.1rem;
+  border-top: 1px solid var(--border);
+}
+
+.more-projects h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+}
+
+.more-projects p {
+  margin: 0 0 0.75rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.more-projects-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--ink);
+}
+
+.more-projects-list li + li {
+  margin-top: 0.45rem;
+}
+
 .ai-note {
   font-size: 0.9rem;
   color: var(--muted);
