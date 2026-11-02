@@ -71,7 +71,7 @@ const commands = (page, name) => page.evaluate(n=>(window.dataLayer || []).filte
     await page.keyboard.press('Escape');
     const events=await commands(page,'event');
     assert.deepEqual(events.map(c=>c[1]),['page_view','file_download','select_content']);
-    assert.equal(events[2][2].item_id,'brain-signals-lab');
+    assert.equal(events[2][2].content_id,'brain-signals-lab');
     assert(!JSON.stringify(events).includes(marker));
     if (realTag) {
       const timeout=Date.now()+24000;
@@ -79,6 +79,7 @@ const commands = (page, name) => page.evaluate(n=>(window.dataLayer || []).filte
         await new Promise(resolve=>setTimeout(resolve,250));
       for (const name of ['page_view','file_download','select_content'])
         assert(traffic.some(r=>r.join('&').includes('en='+name)),'Missing outbound event '+name);
+      assert(traffic.some(r=>r.join('&').includes('ep.content_id=brain-signals-lab')),'The project is missing from the standard Content ID dimension');
       assert((await context.cookies()).some(c=>c.name==='_ga'),'The actual tag did not set the consented cookie');
     } else {
       await context.addCookies(['_ga','_ga_'+id.slice(2)].map(name=>({name,value:'fixture',domain:'erfanpj.com',path:'/'})));
@@ -95,9 +96,17 @@ const commands = (page, name) => page.evaluate(n=>(window.dataLayer || []).filte
     const before=(await commands(page,'event')).length;
     await page.locator('a.cvbtn').click();
     assert.equal((await commands(page,'event')).length,before);
-    const afterDecline=traffic.length;
-    await page.reload();
-    assert.equal(traffic.length,afterDecline,'Reloading after decline contacted Analytics');
+    // Attribute requests to the new document, independently of consented batches still in flight in other tabs.
+    const declinedVisit=await context.newPage();
+    const unexpected=[];
+    declinedVisit.on('request',request=>{
+      const dest=new URL(request.url());
+      if (gaHosts.test(dest.hostname)) unexpected.push(dest.hostname+dest.pathname);
+    });
+    await declinedVisit.goto(origin);
+    await declinedVisit.reload();
+    assert(!(await declinedVisit.locator('#analytics-privacy').isVisible()));
+    assert.deepEqual(unexpected,[],'A fresh visit after decline contacted Analytics');
     assert(!JSON.stringify(traffic).includes(marker),'A private URL or form value escaped into an Analytics request');
     assert.equal(errors.length,0,errors.join('\n'));
     console.log('PASS: opt-in, decline, remembered choice, stripped URLs, three allowed events, form privacy, cookie cleanup and cross-tab withdrawal. '+(realTag?'Google tag requests intercepted; no test data submitted.':'Offline fixture.'));
