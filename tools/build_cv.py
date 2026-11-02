@@ -3,7 +3,7 @@
     python tools/build_cv.py
 
 Writes cv/Erfan-Pirjahandideh-CV.docx, a plain-text copy, and the PDF (LibreOffice) into site/.
-The private master CV and the role variants are built with tools/build_cvs.py from the same source."""
+Private role variants (with phone number) are built by tools/build_cvs.py from a cv_private.py kept outside this repository."""
 import shutil, subprocess, sys
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]

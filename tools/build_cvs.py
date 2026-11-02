@@ -10,6 +10,11 @@ from docx.opc.constants import RELATIONSHIP_TYPE as RT
 from docx.shared import Mm, Pt, RGBColor
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import cv_content as C
+try:
+    import cv_private as PV  # private application CVs; absent in the public repo
+    ALL_DOCS = {**C.DOCS, **PV.DOCS}; COVERS = PV.COVERS
+except ImportError:
+    PV = None; ALL_DOCS = dict(C.DOCS); COVERS = {}
 
 ACCENT = "7A4E12"; INK = "1E2124"; MUTED = "50565A"; LINK = "1F4E6B"
 def base_doc(title):
@@ -47,21 +52,21 @@ def right_tab(p, d):
     sec = d.sections[0]; width = sec.page_width - sec.left_margin - sec.right_margin
     p.paragraph_format.tab_stops.add_tab_stop(width, WD_TAB_ALIGNMENT.RIGHT)
 
-def header(d, md, tagline, phone):
+def header(d, md, title, phone):
     p = para(d, space_after=0); run(p, C.NAME, True, 20, INK)
-    p = para(d, space_after=3); run(p, tagline, True, 11, ACCENT)
-    items = [C.LOCATION] + ([C.PHONE] if phone else []) + [C.EMAIL]
+    p = para(d, space_after=3); run(p, title, True, 11, ACCENT)
+    items = [C.LOCATION] + ([C.PHONE] if phone and C.PHONE else []) + [C.EMAIL]
     p = para(d, space_after=0)
     for i, it in enumerate(items):
         if i: run(p, "  |  ", size=9.5, color=MUTED)
         if it == C.EMAIL: hyperlink(p, it, "mailto:" + it, 9.5)
         else: run(p, it, size=9.5)
     p = para(d, space_after=4)
-    for i, (label, url) in enumerate(C.LINKS):
+    for i, (lab, label, url) in enumerate(C.LINKS):
         if i: run(p, "  |  ", size=9.5, color=MUTED)
-        hyperlink(p, label, url, 9.5)
+        run(p, lab + ": ", size=9.5, color=MUTED); hyperlink(p, label, url, 9.5)
     bottom_border(p, ACCENT)
-    md += [f"# {C.NAME}", f"**{tagline}**", "", " | ".join(items) + "  ", " | ".join(l for l, _ in C.LINKS), ""]
+    md += [f"# {C.NAME}", f"**{title}**", "", " | ".join(items) + "  ", " | ".join(f"{a}: {b}" for a, b, _ in C.LINKS), ""]
 
 def render(d, md, blocks):
     for b in blocks:
@@ -97,20 +102,21 @@ def to_pdf(docx, outdir):
     subprocess.run(["soffice", "--headless", "--convert-to", "pdf", "--outdir", str(outdir), str(docx)], check=True, capture_output=True)
 
 def build_cv(key, out):
-    spec = C.DOCS[key]; d = base_doc(f"{C.NAME} | CV"); md = []
-    header(d, md, spec["tagline"], spec["phone"]); render(d, md, spec["blocks"]); footer(d)
+    spec = ALL_DOCS[key]; d = base_doc(f"{C.NAME} | CV"); md = []
+    header(d, md, spec["title"], spec["phone"]); render(d, md, spec["blocks"]); footer(d)
     stem = out / spec["file"]; d.save(str(stem) + ".docx"); Path(str(stem) + ".md").write_text("\n".join(md) + "\n", encoding="utf-8")
     to_pdf(str(stem) + ".docx", out); return stem
 
-def build_cover(out):
-    spec = C.COVER; d = base_doc(f"{C.NAME} | Cover letter"); md = []
+def build_cover(key, out):
+    spec = COVERS[key]; d = base_doc(f"{C.NAME} | Cover letter"); md = []
     d.sections[0].left_margin = d.sections[0].right_margin = Mm(22); d.sections[0].top_margin = Mm(16)
-    header(d, md, "Applied AI & ML engineer", True)
+    header(d, md, spec["title"], True)
     for i, t in enumerate(spec["paragraphs"]):
         p = para(d, space_before=4 if i else 8, space_after=4)
         lines = t.split("\n")
         for j, ln in enumerate(lines):
-            r = run(p, ln, bold=(ln.startswith("Application:")), size=10.5)
+            small = t.startswith("Kind regards") and j >= 2
+            r = run(p, ln, bold=(ln.startswith(("Application:", "Thesis enquiry:"))), size=9.5 if small else 10.5, color=MUTED if small else None)
             if j < len(lines) - 1: r.add_break()
         md += [t.replace("\n", "  \n"), ""]
     stem = out / spec["file"]; d.save(str(stem) + ".docx"); Path(str(stem) + ".md").write_text("\n".join(md), encoding="utf-8")
@@ -118,8 +124,8 @@ def build_cover(out):
 
 if __name__ == "__main__":
     out = Path(sys.argv[1]); out.mkdir(parents=True, exist_ok=True)
-    keys = sys.argv[2:] or [k for k in C.DOCS if k != "Public_site"] + ["cover"]
+    keys = sys.argv[2:] or [k for k in ALL_DOCS if k != "Public_site"] + ["cover:" + c for c in COVERS]
     for k in keys:
-        stem = build_cover(out) if k == "cover" else build_cv(k, out)
+        stem = build_cover(k[6:], out) if k.startswith("cover:") else build_cv(k, out)
         pages = subprocess.run(["pdfinfo", str(stem) + ".pdf"], capture_output=True, text=True).stdout
         print(k, stem.name, [l for l in pages.splitlines() if l.startswith("Pages")])

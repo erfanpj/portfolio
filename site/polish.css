@@ -36,3 +36,12 @@
 .contact-alt{margin-top:12px;font-size:15px}.contact-alt a{text-decoration:underline;text-underline-offset:3px}
 @media(max-width:650px){.project-status{font-size:12px}.proof{font-size:13px}.fit-tabs button{font-size:14px;padding:8px 12px}}
 @media print{.project-filter,.fit-tabs,.filter-status{display:none}.fit-panel[hidden],.project-entry[hidden]{display:block}}
+/* round 1: "Currently looking for" block, paragraph-style fit panels, contact labels */
+.open-to .where{display:block;margin-top:4px;color:var(--muted,#A8A39B);font-size:.93em}
+.fit-panel p{margin:0 0 10px;color:var(--text);line-height:1.6;max-width:72ch}
+.fit-panel p:last-of-type{margin-bottom:14px}
+.contact-label{margin:18px 0 4px!important;font:500 12px/1.2 'JetBrains Mono',monospace;letter-spacing:.06em;text-transform:uppercase;opacity:.75}
+.contact-label-inline{opacity:.75}
+@media(max-width:360px){.mobileHero .mobileIntro>p.m-title{font-size:26px}.mobileIntro>p:not(.mfocus):not(.m-title):not(.open-to){font-size:13.5px!important;line-height:1.42}.mobileIntro>p.open-to{font-size:12.8px!important}.mobileIntro>p.open-to .where{display:none}}
+.heroFrame .top>p.hero-intro{font-size:max(16.5px,calc(14px / var(--r,1)))!important;line-height:1.48}
+.heroFrame .top>p.open-to{max-width:68ch}
