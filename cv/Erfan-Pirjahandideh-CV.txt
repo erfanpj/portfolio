@@ -1,6 +1,6 @@
 Erfan Pirjahandideh
 Computer vision and applied machine learning
-Darmstadt, Germany  |  erfanpj@gmail.com
+Darmstadt, Germany  |  erfan@erfanpj.com
 erfanpj.com (https://erfanpj.com/)  |  GitHub (https://github.com/erfanpj)  |  LinkedIn (https://www.linkedin.com/in/erfan-pirjahandideh)
 Professional profile
 Computer vision and AI research assistant at Fraunhofer IGD with eight years of experience in telecommunications IT. My work spans image synthesis, biometric evaluation, service monitoring and software development. My academic background includes artificial intelligence and machine learning studies at TU Darmstadt.
