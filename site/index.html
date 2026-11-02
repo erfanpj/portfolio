@@ -128,6 +128,24 @@
 
 <aside class="glance"><div class="wrap"><div><small>Based in</small>Darmstadt, Germany</div><div><small>Focus</small>Applied ML &amp; computer vision</div><div><small>Background</small>Eight years in telecom IT</div></div></aside>
 
+<section id="analytics-privacy" class="analytics-privacy" aria-labelledby="analytics-title" hidden>
+  <div class="wrap">
+    <div class="analytics-copy">
+      <h2 id="analytics-title" tabindex="-1">Optional analytics</h2>
+      <p>May I use Google Analytics to count visits, CV downloads and project opens?</p>
+      <details><summary>How your data is used</summary>
+        <p>If you allow analytics, Google receives visit and device information, the referring site’s origin when available, and the portfolio actions listed above. Contact form entries and URL query parameters are excluded. Advertising features are off.</p>
+        <p>Analytics cookies and your choice last up to six months. You can change your choice under “Privacy &amp; analytics” in the footer. Declining stops future measurement and removes this site’s analytics cookies. <a href="https://policies.google.com/privacy">Google’s privacy policy</a>.</p>
+      </details>
+    </div>
+    <div class="analytics-actions" role="group" aria-label="Analytics preference">
+      <button type="button" data-analytics-choice="allow" aria-pressed="false">Allow analytics</button>
+      <button type="button" data-analytics-choice="decline" aria-pressed="false">Decline analytics</button>
+    </div>
+    <p id="analytics-status" role="status"></p>
+  </div>
+</section>
+
 <section id="skills" class="band skills"><div class="wrap"><header class="section-heading"><p class="folio">01 / Capabilities</p><h2>Technical skills.</h2><p>The tools I use and the decisions they help me make.</p></header>
 <div class="capabilities">
 <article><span class="cap-number" aria-hidden="true">01</span><h3>Computer vision</h3><p>Build image pipelines, align faces and compare biometric embeddings.</p><small>Python · PyTorch · CUDA · OpenCV · Diffusers</small></article>
@@ -169,7 +187,7 @@
 <div class="trap" aria-hidden="true"><label>Leave blank<input tabindex="-1" autocomplete="off" name="_gotcha"></label></div>
 <fieldset class="human-check"><legend>Human verification</legend><label for="human-answer" id="human-prompt">Loading the verification…</label><img id="human-picture" width="154" height="43" alt="Five verification digits. A text question is also available." hidden><input id="human-answer" name="answer" inputmode="numeric" autocomplete="off" maxlength="8" required><div class="challenge-actions"><button id="new-challenge" type="button">New challenge</button><button id="challenge-mode" type="button">Use a text question</button></div></fieldset>
 <p class="form-note">Your details go to Erfan by email. A phone number is only needed if you’d like a call back.</p><button type="submit" class="send-button" disabled>Send message <span aria-hidden="true">↗</span></button><p id="contact-status" class="form-status" role="status" aria-live="polite"></p></form><noscript><p>Enable JavaScript for the verified form, or use the direct email link.</p></noscript></div>
-<div class="footline"><span>Erfan Pirjahandideh · Darmstadt</span><div><label class="motion-option"><input type="checkbox" id="reduce-motion"> Reduce animation</label><a href="https://github.com/erfanpj">GitHub ↗</a><a href="https://www.linkedin.com/in/erfan-pirjahandideh">LinkedIn ↗</a><a href="#home">Top ↑</a></div></div></div></footer>
+<div class="footline"><span>Erfan Pirjahandideh · Darmstadt</span><div><label class="motion-option"><input type="checkbox" id="reduce-motion"> Reduce animation</label><button type="button" class="privacy-link" id="analytics-settings" hidden>Privacy &amp; analytics</button><a href="https://github.com/erfanpj">GitHub ↗</a><a href="https://www.linkedin.com/in/erfan-pirjahandideh">LinkedIn ↗</a><a href="#home">Top ↑</a></div></div></div></footer>
 
 <dialog id="case-0" aria-labelledby="case-title-0"><form method="dialog"><button class="closecase" type="submit">Close ×</button></form>
 <h2 id="case-title-0">Brain Signals Lab</h2>
@@ -210,5 +228,6 @@
 <script src="contact-config.js" defer></script>
 <script src="contact.js" defer></script>
 <script src="hero.js" defer></script>
+<script src="analytics.js" data-measurement-id="G-WHZYD0QJF8" defer></script>
 </body>
 </html>

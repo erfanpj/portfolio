@@ -41,3 +41,21 @@ footer{padding-top:clamp(40px,5vw,64px)}.contact-layout{display:grid;grid-templa
 @media(max-height:285px){.mobileHero{min-height:240px}}
 @media print{#contact-form,.motion-option{display:none}}
 #contact-form[hidden],#human-picture[hidden]{display:none}.challenge-actions{display:flex;gap:18px}.human-check img{display:block;margin:7px 0;border-radius:2px}.contact-intro .email:focus-visible{outline:3px solid var(--focus-dark);outline-offset:3px}
+
+.analytics-privacy {background:var(--paper);color:var(--ink);border-bottom:1px solid var(--rule)}
+.analytics-privacy[hidden],.privacy-link[hidden] {display:none}
+.analytics-privacy .wrap {display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:28px;padding-block:18px}
+.analytics-copy h2 {font:650 21px/1.2 'Familjen Grotesk',sans-serif;margin:0 0 4px}
+.analytics-copy p,.analytics-copy summary,#analytics-status {font:400 14px/1.5 'DM Sans',sans-serif;margin:0}
+.analytics-copy details {margin-top:5px;max-width:70ch;color:var(--text)}
+.analytics-copy summary {cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.analytics-copy details p {margin-top:6px}.analytics-copy details a {text-decoration:underline}
+.analytics-actions {display:flex;flex-wrap:wrap;gap:8px}
+.analytics-actions button {font:600 14px/1.2 'DM Sans',sans-serif;color:var(--ink);background:transparent;border:1px solid var(--text);border-radius:6px;padding:8px 14px;min-height:44px;cursor:pointer}
+.analytics-actions button[aria-pressed="true"] {background:var(--ink);color:var(--paper)}
+.analytics-privacy :focus-visible {outline:3px solid var(--focus-paper);outline-offset:3px}
+#analytics-status {grid-column:1/-1;color:var(--text);margin-top:8px}#analytics-status:empty {display:none}
+.privacy-link {font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+.privacy-link:hover {text-decoration:underline;text-underline-offset:3px}
+@media(max-width:760px){.analytics-privacy .wrap{grid-template-columns:1fr;row-gap:10px}.analytics-actions button{flex:0 1 auto}}
+@media print{.analytics-privacy,.privacy-link{display:none}}
