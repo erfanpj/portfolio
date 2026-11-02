@@ -1,0 +1,34 @@
+/* The masthead is a document landmark, independent of the illustration’s scale. */
+:root{--mast-height:76px;--focus-dark:#ffcf80;--focus-paper:#654396;--signal-surface:#211e26}
+html{scroll-padding-top:calc(var(--mast-height) + 8px)}
+.masthead{position:sticky;top:0;z-index:20;background:var(--night);color:var(--light)}
+.masthead .mast-inner{max-width:1440px;margin:auto;padding:0 clamp(22px,5.55vw,80px);height:var(--mast-height);display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{font:650 20px/1.15 'Familjen Grotesk',sans-serif;letter-spacing:-.04em;white-space:nowrap}.brand span{color:var(--amber)}
+.wide-nav{display:flex;align-items:center;gap:clamp(14px,1.75vw,28px);font:550 16px/1.3 'Familjen Grotesk',sans-serif}
+.wide-nav a{display:inline-flex;align-items:center;min-height:44px}.wide-nav a:hover{text-decoration:underline;text-underline-offset:5px}.wide-nav .contact-link{background:var(--amber);color:var(--night);padding:0 18px;border-radius:9px}
+.masthead :focus-visible,.mobileHero :focus-visible,.heroFrame :focus-visible,.mobile-nav-panel :focus-visible{outline:3px solid var(--focus-dark);outline-offset:3px}
+body:has(dialog[open]){overflow:hidden}
+.skip-link:focus{position:fixed}
+.heroFrame{margin-top:calc(0px - min(var(--mast-height),5.55vw))}.heroFrame>.hero-scene{transform:scale(var(--r,1));transform-origin:top left}
+.hero-controls{left:80px;right:auto;top:416px}.hero-play{display:inline-flex;align-items:center;gap:.55em;padding:9px 14px;border-radius:7px;border-color:var(--darkline);line-height:1.2}
+.hero-play::before{content:'Ⅱ';font-size:.9em;font-weight:bold;color:var(--amber)}.hero-play[data-state=paused]::before{content:'▷'}
+.heroFrame .illustration-note{color:var(--muted);font:400 14px/1.4 'DM Sans',sans-serif;max-width:none}
+.heroFrame .hor2 .tip{z-index:8;line-height:1.42;font-size:14px}.hor2[data-open=true] .tip{display:block}.hor2[data-open=true]{opacity:1!important;filter:none!important}.hor2[data-dismissed=true] .tip{display:none}
+.heroFrame .hlab{opacity:1!important}.heroFrame .hlab span{color:#e0bc83}.heroFrame .hor2,.heroFrame .hor2.off{opacity:1!important;border-color:#938591;color:var(--light)}.heroFrame .hor2 svg{filter:none}
+.hor2 .tip::after{content:'';position:absolute;left:0;right:0;top:100%;height:13px}
+.step-copy{color:var(--text)}
+.scene-key{display:flex;align-items:center;justify-content:space-between;margin:24px 0 0;padding-top:12px;border-top:1px solid var(--darkline);color:var(--muted);font:550 12px/1.3 'DM Sans',sans-serif;letter-spacing:.045em}
+.scene-key .hero-play{font-size:13px}
+.mobileSceneWrap{max-width:475px;margin:0 auto}.mobileSignal{display:block;width:100%;height:auto;overflow:visible}
+.mobileStepGrid{margin-top:6px}.mobileStepGrid li{font-size:14px;line-height:1.45}.mobileStepGrid b{font:650 15px/1.25 'Familjen Grotesk',sans-serif}
+.mobileChemLabel{font-size:14px;color:var(--muted);max-width:43ch;margin-top:28px}
+.mobileChem button{background:var(--signal-surface);border-color:var(--darkline);min-height:60px;cursor:pointer}.mobileChem button b{font-size:15px}.mobileChem button span{font-size:13px}
+.mobileChem button[aria-expanded=true]{border-color:var(--amber);background:#332b23}.motif-note{margin:14px 0 0;color:var(--light);font-size:15px;line-height:1.5}.motif-note[hidden]{display:none}
+#mobile-nav{display:none;position:fixed;inset:0 0 0 auto;margin:0;width:min(350px,93vw);height:100dvh;max-width:100%;max-height:none;padding:0;border:0;border-left:1px solid var(--darkline);border-radius:0;color:var(--light);background:var(--night);overflow:auto}
+#mobile-nav[open]{display:block}#mobile-nav::backdrop{background:rgba(12,11,15,.72)}
+#mobile-nav .sheet{position:static;width:100%;height:auto;padding:24px 22px;border:0}#mobile-nav a{display:block;color:var(--light);padding:13px 0;border-top:1px solid var(--darkline)}
+dialog:not(#mobile-nav){color:var(--ink)}dialog:focus-visible{outline:3px solid var(--focus-paper)}
+@media(max-width:1024px){:root{--mast-height:64px}.masthead{border-bottom:1px solid var(--darkline)}.masthead .wide-nav{display:none}.masthead .menu-toggle{display:inline-flex;font:600 14px/1.2 'Familjen Grotesk',sans-serif;padding:8px 12px}.masthead .brand{font-size:19px}.mobileHero{padding-top:18px}.mobileHero .mfocus{margin-top:0}.heroFrame{margin-top:0}}
+@media(min-width:600px) and (max-width:1024px){.mobileHero{padding-inline:clamp(35px,8vw,74px)}.mobileHero .mobileSceneWrap{max-width:428px}.mobileStepGrid,.mobileChem{max-width:640px}}
+@media(prefers-reduced-motion:reduce){.mobileSignal .A,.mobileSignal .nt{animation:none!important}}
+@media print{.masthead{position:static}.hero-controls,.scene-key button,.menu-toggle{display:none}}
