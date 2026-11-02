@@ -73,19 +73,19 @@
       <div class="case-copy">
         <h2>Reachboard showcase</h2>
         <p class="case-lede">I built a fictional media-buying catalogue where the server owns cart totals and campaigns move draft → awaiting payment.</p>
-        <p>I seeded six packages with channel, placement, and <strong>RB credits</strong> prices. In the sample journey, Echo plus Northline is <strong>75</strong> credits. When I run Django locally, checkout is POST-only with CSRF and per-user reset. The public link is a separate browser simulation with the same prices—not the live app.</p>
-        <p class="try-line"><strong>Try the simulation:</strong> add Echo, review cart → draft, submit, then reset and shop again.</p>
-        <p class="note">The screenshot is from my local Django catalogue; the button opens the verified static fixture on GitHub Pages.</p>
+        <p>I seeded six packages with channel, placement, and <strong>RB credits</strong> prices. In the sample journey, add <strong>Echo Weekly</strong> (35) and <strong>Northline Sound</strong> (40), review cart → draft, and the locked campaign total is <strong>75</strong> credits. When I run Django locally, checkout is POST-only with CSRF and per-user reset—that backend is separate from the public browser simulation linked below.</p>
+        <p class="try-line"><strong>Try the simulation:</strong> use the compare-row adds, review cart → draft, submit, then reset and shop again.</p>
+        <p class="note">The screenshot is the verified public static fixture at draft (75 credits). A separate <a href="assets/reachboard-django-catalogue-desktop.png">local Django catalogue capture</a> shows the server-rendered app—not the Pages demo.</p>
         <p class="links">
           <a class="btn btn-violet" href="https://erfanpj.github.io/reachboard-showcase/">Browser simulation</a>
           <a class="btn btn-ghost" href="https://github.com/erfanpj/reachboard-showcase">Code</a>
         </p>
       </div>
       <figure class="case-media">
-        <a href="assets/reachboard-django-catalogue-desktop.png" target="_blank" rel="noopener">
-          <img src="assets/reachboard-django-catalogue-desktop.png" width="1280" height="720" alt="Local Django Reachboard catalogue with fictional packages and cart panel.">
+        <a href="assets/reachboard-static-draft-75-desktop.png" target="_blank" rel="noopener">
+          <img src="assets/reachboard-static-draft-75-desktop.png" width="1280" height="720" alt="Public Reachboard browser simulation at draft with Echo and Northline totalling 75 RB credits.">
         </a>
-        <figcaption>Local Django catalogue with fictional packages (<a href="assets/ATTRIBUTION.md">screenshot source</a>). Live browser simulation linked above.</figcaption>
+        <figcaption>Public static fixture at draft (75 RB credits) after Echo + Northline (<a href="assets/ATTRIBUTION.md">screenshot source</a>). Live simulation linked above.</figcaption>
       </figure>
     </article>
 
