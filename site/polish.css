@@ -1,0 +1,38 @@
+/* 2026-11 polish: clear hero, open-to strip, fit check, project filter. Loaded last. */
+.heroFrame .top>p.open-to{margin:0;font:400 max(15px,calc(13.5px / var(--r,1)))/1.45 'DM Sans',sans-serif!important;color:#C9C4BC;max-width:60ch}
+.open-to strong{color:var(--amber);font-weight:650}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px}
+.heroFrame .btn.small{padding:12px 16px}
+.heroFrame .btn.ghost:hover,.heroFrame .btn.ghost:focus-visible{background:#26232b}
+/* The hormone legend moves into "About the illustration"; the icons and their notes stay. */
+.heroFrame .hlab:not(.illustration-note){display:none}
+.mobileHero .mobileIntro>p.m-title{font:600 clamp(32px,6.7vw,53px)/1.02 'Familjen Grotesk','DM Sans',sans-serif;letter-spacing:-.035em;margin:8px 0;max-width:18ch;color:var(--light)}
+.mobileHero .mobileIntro>p.m-title em{font-style:normal;color:var(--amber)}
+.mobileIntro>p.open-to{font-size:13.5px!important;line-height:1.42;margin:0 0 10px!important;color:var(--light)!important}
+@media(max-width:1024px){.mobileHero .mact a{min-height:40px}}
+@media(max-width:420px){.mobileHero .mobileIntro>p.m-title{font-size:31px}.mobileIntro>p:not(.mfocus):not(.m-title):not(.open-to){font-size:14.5px!important}.mobileHero .mact{display:grid;grid-template-columns:1fr 1fr;gap:8px}.mobileHero .mact a{justify-content:center}}
+/* Open-to strip: show all three facts on phones too */
+@media(max-width:650px){.glance .wrap{grid-template-columns:1fr 1fr}.glance .wrap>div:last-child{display:block;grid-column:1/-1;padding-left:0;border-left:0;border-top:1px solid var(--darkline);padding-top:10px}}
+/* Fit check */
+.fit{background:var(--stone)}
+.fit-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}.fit-tabs[hidden],.project-filter[hidden]{display:none}
+.fit-tabs button,.project-filter button{font:600 15px/1.2 'DM Sans',sans-serif;min-height:44px;padding:10px 16px;border-radius:999px;border:1px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer}
+.fit-tabs button[aria-selected=true],.project-filter button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
+.fit-tabs button:focus-visible,.project-filter button:focus-visible,.fit-link:focus-visible{outline:3px solid var(--focus-paper,#654396);outline-offset:3px}
+.fit-panel{max-width:78ch}.fit-panel h3{margin:0 0 8px;font-size:clamp(20px,2vw,24px)}
+.fit-panel ul{margin:0 0 12px;padding-left:1.1em;color:var(--text);line-height:1.55}.fit-panel li+li{margin-top:6px}
+.fit-panels.js .fit-panel h3{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.fit-panel[hidden]{display:none}.fit-panels:not(.js) .fit-panel+.fit-panel{margin-top:26px}
+.fit-link{font-weight:650;text-decoration:underline;text-underline-offset:4px;color:var(--brown)}
+/* Projects */
+.project-filter{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px}.project-filter button{font-size:14px;min-height:40px;padding:8px 14px}
+.filter-status{min-height:1.4em;margin:4px 0 8px;font-size:13px;color:var(--text)}
+.project-entry[hidden]{display:none}
+.project-status{margin:0 0 6px;font:500 13px/1.35 'DM Sans',sans-serif;color:var(--text);font-style:italic}
+.proof{margin:6px 0 0;font-size:14px;line-height:1.4;color:var(--ink)}.proof b{color:var(--brown);font-size:1.08em}
+.thumb-text{display:flex!important;flex-direction:column;justify-content:center;align-items:flex-start;gap:4px;padding:10px 12px;box-sizing:border-box;background:var(--night)!important;color:var(--light);border-color:var(--night)!important}
+.thumb-text span{font:500 11px/1.2 'DM Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.thumb-text b{font:650 18px/1.1 'Familjen Grotesk',sans-serif;color:var(--amber)}
+.contact-alt{margin-top:12px;font-size:15px}.contact-alt a{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:650px){.project-status{font-size:12px}.proof{font-size:13px}.fit-tabs button{font-size:14px;padding:8px 12px}}
+@media print{.project-filter,.fit-tabs,.filter-status{display:none}.fit-panel[hidden],.project-entry[hidden]{display:block}}
