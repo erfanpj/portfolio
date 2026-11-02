@@ -1,4 +1,4 @@
-# Erfan Pirjahandideh · Evidence Portfolio
+# Erfan Pirjahandideh · Portfolio
 
 Static portfolio and two-page CV for [erfanpj.com](https://erfanpj.com/). GitHub Pages serves only `site/`. The original artwork is adapted for the visitor’s viewport. The contact form is first-party HTML on the same page; the [Google Apps Script mailer](contact/README.md) handles human verification and delivers to the owner.
 
@@ -17,7 +17,7 @@ python tools/link_audit.py
 
 The browser check requires Playwright and Chromium; set `PLAYWRIGHT_MODULE` or `CHROME_BIN` to select local installations. It checks the whole hero at 12 viewport sizes, 144 × 90 previews, motion preferences, navigation, published PDF bytes and form states. The simulated transport never sends mail. Personal data is not included in release evidence.
 
-Edit the public site in `site/`. The original direction boards and original one-off builders document the first release; they are not inputs for regenerating the current public HTML. Update `tools/build_cv.py` when CV facts change, export the Word master to PDF, check both pages, and update the expected PDF fingerprint in the smoke check.
+Edit the public site in `site/`. The original direction boards and original one-off builders document the first release; they are not inputs for regenerating the current public HTML. CV facts live in `tools/cv_content.py`. Run `python tools/build_cv.py` to rebuild the public CV (Word, text and PDF, no phone number), check both pages, and update the expected PDF fingerprint in the smoke check if it pins one.
 
 ## Portfolio analytics
 

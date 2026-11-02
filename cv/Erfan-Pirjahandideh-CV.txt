@@ -1,47 +1,77 @@
 Erfan Pirjahandideh
-Computer vision and applied machine learning
-Darmstadt, Germany  |  erfan@erfanpj.com
-erfanpj.com (https://erfanpj.com/)  |  GitHub (https://github.com/erfanpj)  |  LinkedIn (https://www.linkedin.com/in/erfan-pirjahandideh)
-Professional profile
-Computer vision and AI research assistant at Fraunhofer IGD with eight years of experience in telecommunications IT. My work spans image synthesis, biometric evaluation, service monitoring and software development. My academic background includes artificial intelligence and machine learning studies at TU Darmstadt.
-How I work
-I start by finding the question behind a failure. I build the smallest useful comparison, test it against a baseline and share enough detail for someone else to challenge the result. That habit connects how I troubleshoot services with how I evaluate models.
-Technical skills
-Computer vision and generative models.  Python, PyTorch, CUDA, OpenCV, Hugging Face Diffusers and Datasets; Stable Diffusion, pretrained LoRA, face alignment and biometric embeddings.
-Evaluation and reproducibility.  Participant-held-out testing, simple baselines, EER and FMR/FNMR, experiment logging, identity-wise sampling and dataset integrity. Git, Linux, Docker and Slurm.
-Software and service operations.  Django, APIs, PostgreSQL, PHP, Laravel and JavaScript. Service monitoring, Jira integration, workflow automation, testing and technical documentation.
-Selected achievements
-Innovation recognition.  Received the MTN CEO Special Award for Innovation in April 2018.
-Service leadership.  Led a seven-person service desk handling more than 2,000 tickets a month at Behsa. Led the implementation of monitoring for more than 30 services at NAK.
+Applied AI & ML engineer · Computer vision research
+
+Darmstadt, Germany | erfan@erfanpj.com
+https://erfanpj.com | https://github.com/erfanpj | https://www.linkedin.com/in/erfan-pirjahandideh/
+
+
+Profile
+
+I’m a Computer Vision & AI Research Assistant at Fraunhofer IGD and an M.Sc. student in Artificial Intelligence and Machine Learning at TU Darmstadt (expected graduation [[MSC_GRAD_DATE]]). Before that I spent about eight years in telecom IT, leading a service desk and automating support work: 25% faster ticket resolution and 40% faster response times. I build things people can check: held-out evaluations, simple baselines and human approval before automated actions.
+
+Open to applied AI, AI automation, AI enablement and ML engineering roles, and a master’s thesis (brain and neurotech preferred). Berlin, Frankfurt or remote EU; based in Germany.
+
+
 Research experience
-Computer Vision and AI Research Assistant
-Fraunhofer IGD, Darmstadt, Germany  |  February 2026–present
-Build reproducible image-synthesis and evaluation pipelines with Python, PyTorch, CUDA and Stable Diffusion. Align faces, extract 512-dimensional embeddings and compare biometric error rates across controlled experiments.
-Run experiments on A100 GPUs with Slurm. Apply quality scoring and identity-wise selection; verify dataset integrity and document evaluation procedures. Developed forms and review checklists for dental data acquisition.
+
+Computer Vision & AI Research Assistant · Fraunhofer IGD, Darmstadt, Germany | Feb 2026 – present
+• Work on attribute-driven identity synthesis; paper in preparation, target venue WACV 2027 (ongoing research, no published results yet).
+• Build reproducible image-synthesis and evaluation pipelines with Python, PyTorch, CUDA and Stable Diffusion. Align faces, extract 512-dimensional embeddings and compare biometric error rates (EER, FMR/FNMR) across controlled experiments.
+• Run experiments on A100 GPUs with Slurm; apply quality scoring and identity-wise selection, verify dataset integrity and document evaluation procedures.
+
+Selected projects
+
+Brain Signals Lab — EEG motor imagery · *Completed evaluation · public data* | github.com/erfanpj/brain-signals-lab
+• Tested whether imagined left- vs right-fist movement can be decoded from the EEG of people the model has never seen: public PhysioNet data, 50 participants, 2,245 trials, five participant-held-out folds; band and settings chosen on training participants only.
+• CSP + LDA reached 61.8% mean accuracy vs a 50.4% majority-class baseline (participant median 57.8%); a reduced EEGNet reached 53.9%. A static viewer shows every participant’s result. Engineering result on one public dataset, not a clinical or neuroscience claim.
+OpsDesk AI — human-approved support automation · *Local prototype · browser demo is a simulation* | github.com/erfanpj/opsdesk-ai
+• Built a local support desk: retrieval over a handbook (keyword, BM25, dense, hybrid), structured proposals from a small local LLM, explicit human approval and mock execution.
+• Approval is invalidated when a proposal changes; execution is idempotent per approval id; every step is written to a hash-chained audit log. A FastAPI review UI and an MCP adapter share the same service.
+• On 60 held-out fictional tickets the rules baseline produced 37/60 fully correct proposals vs 25/60 for the local model, so I kept rules as the default.
+Reachboard — Django workflow showcase · *Fictional data · browser demo is a simulation* | github.com/erfanpj/reachboard-showcase
+• Django campaign workflow with server-authoritative pricing, ownership checks, CSRF-protected checkout, explicit state transitions, audit history and idempotent submission (a repeated submit adds no duplicate history).
+Breast cancer classifier comparison · *Completed evaluation · public dataset* | github.com/erfanpj/Breast_Cancer_Project
+• Rebuilt an earlier analysis with leakage-safe pipelines, nested cross-validation and a held-out test set scored once; automated tests check that no fit sees a test row.
+• Tuned MLP F1 0.950 vs 0.951 for plain logistic regression on 143 held-out samples, so the simpler model is just as good. Not a clinical tool.
+Exploratory Alzheimer’s data analysis in Julia · *Descriptive analysis · synthetic data* | github.com/erfanpj/exploratory_alzheimers
+• Descriptive analysis of a synthetic dataset (2,149 records) with validation against the data card, recorded cleaning counts, provenance notes, 95% intervals and 49 tests. Results describe the data generator; no clinical claims.
+I used AI coding assistants on these independent projects; each README states what is fictional, local-only or simulated.
 
 
-Erfan Pirjahandideh
-Engineering and operations experience
-Telecommunications IT
-NAK and Behsa, MCCI projects; AHS, MTN project  |  2016–2024
-NAK.  Led service-monitoring implementation and developed a Chrome extension for handling tickets.
-Behsa.  Led the service desk, integrated MCI ticketing with Jira and implemented ITIL-aligned workflows.
-AHS.  Automated management reporting and developed ticketing extensions and service-desk dashboards.
-Freelance software development and web design
-Independent  |  2005–present
-Develop responsive websites and applications using PHP, WordPress, Joomla and JavaScript. Use AI coding tools for implementation, debugging and documentation.
+Professional experience
+
+QA Team & Project Lead | Senior Developer Expert · NAK (MCI project, telecommunications), Tehran, Iran | 2022 – 2024
+• Led the implementation of a monitoring system covering more than 30 services for the mobile operator MCI (Hamrah-e Aval).
+• Built a Chrome ticketing extension (jQuery, HTML, CSS) that reduced ticket-resolution time by 25%.
+Service Desk & Service Management Team Leader · Behsa (MCI project, telecommunications), Tehran, Iran | 2018 – 2022
+• Set up and led a seven-person service desk handling more than 2,000 tickets a month; integrated MCI ticketing with Jira.
+• Introduced ITIL-aligned workflows that improved response times by 40%; coordinated incident and request resolution against SLAs.
+First Technical Support & Helpdesk Engineer · AHS (MTN project, telecommunications), Tehran, Iran | 2016 – 2018
+• Automated daily management reports for senior management and the CIO, improving report accuracy by 30%.
+• Built Chrome extensions and service-desk dashboards that reduced manual workload by 20%; built Telegram bots for automated report updates.
+Freelance Software Developer & Web Designer · Independent | 2005 – present
+• Build web applications, responsive websites, dashboards and workflow automations with PHP, WordPress, Joomla, JavaScript and Python, using AI-assisted development (Cursor, ChatGPT/Codex).
+
+Skills
+
+Applied AI & automation: LLM-assisted workflows, retrieval (keyword, BM25, dense, hybrid), local LLMs, MCP, human-in-the-loop approval, audit logging, FastAPI; AI-assisted development with Cursor and ChatGPT/Codex. Currently learning AI agents, LLM evaluation and workflow-automation platforms.
+ML & computer vision: PyTorch, CUDA, OpenCV, scikit-learn, Hugging Face Diffusers and Datasets, Stable Diffusion, LoRA, InsightFace, ArcFace, ElasticFace, CosFace, CR-FIQA, ONNX Runtime.
+Evaluation & research engineering: Held-out and nested cross-validation, simple baselines, EER and FMR/FNMR, bootstrap intervals, reproducible pipelines, identity-wise data selection, dataset-integrity checks, experiment documentation.
+Software & infrastructure: Python, Julia, SQL, JavaScript, PHP, Groovy; Django, Celery, Laravel, PostgreSQL, MySQL, APIs; Git, Linux, Docker, Slurm, A100 GPUs, Playwright, Power BI.
+Process & delivery: ITIL, Jira, SCSM, SLA/OLA, QA and software testing, workflow automation, stakeholder coordination, team leadership.
+
 Education
-Artificial intelligence and machine learning studies
-Technical University of Darmstadt (TU Darmstadt), Germany
-Software engineering and earlier AI studies
-Islamic Azad University
-B.Sc. and Associate Degree in Software Engineering. Earlier postgraduate study in AI: 20 credits.
-Research publication
-Co-author, “Personality Recognition from Text Based on Deep Learning with Recurrent Neural Network.” 5th International Conference on Fundamental Research in Computer Engineering and Information Technology, 2017.
-Professional training
-ISTQB software testing and DevOps Foundation (2021); Python Foundation and ITIL Foundation (2017).
-Languages
-Farsi: native   |   English: advanced   |   German: A1
-Independent work
-Selected examples include an EEG evaluation viewer, a support workflow and a Django campaign application. Demos and case notes, including the scope of AI coding assistance, are available in my portfolio.
-View selected projects (https://erfanpj.com/#work)
+
+M.Sc. Artificial Intelligence and Machine Learning · TU Darmstadt, Germany | 2024 – present
+In progress; expected graduation [[MSC_GRAD_DATE]].
+
+B.Sc. and Associate Degree in Software Engineering · Islamic Azad University, Iran | 2006 – 2013
+Earlier AI master’s coursework: 20 credits, no degree awarded.
+
+
+Additional
+
+Publication: Co-author, “Personality Recognition from Text Based on Deep Learning with Recurrent Neural Network.” 5th International Conference on Fundamental Research in Computer Engineering and Information Technology, 2017.
+Award: MTN CEO Special Award for Innovation, April 2018.
+Training: ISTQB software testing, DevOps Foundation (2021); ITIL Foundation, Python Foundation (2017).
+Languages: English: advanced · Farsi: native · German: A1

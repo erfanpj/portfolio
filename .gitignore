@@ -1,2 +1,4 @@
 .DS_Store
 Thumbs.db
+cv/_build/
+__pycache__/
