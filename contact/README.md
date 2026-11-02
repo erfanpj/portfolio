@@ -1,0 +1,9 @@
+# Portfolio contact delivery
+
+The public site owns the form, fields and styling. The [Apps Script project](https://script.google.com/home/projects/1x39miOn_8bBal4pMQyFjM1paPlvEEvr-HLqqPzXezF-43PpknXzN5bl-/edit) belongs to Erfan. The public web-app address in site/contact-config.js is a destination, not a credential. No visitor needs a Google login.
+
+Google's [Content Service](https://developers.google.com/apps-script/guides/content) supplies a short-lived human challenge and a separate opaque delivery receipt. GET requests carry no personal fields. The form posts reply email, optional phone, subject and content to the mailer over HTTPS. Code.gs verifies the server-side challenge, one-use token, input limits, honeypot, time window, per-address ceiling and fixed daily send budget. Only MailApp can send and the recipient is fixed; no inbox read permission is requested. A successful receipt is set only after MailApp accepted the send. An unknown result must never cause automatic resubmission.
+
+For maintenance, paste the reviewed Code.gs into the named Google project, save it, use Deploy → Manage deployments → Edit → New version. Preserve the current public URL. Do not replace the production public URL without an anonymous challenge check and receipt test. The publishing account authorizes the [send-only mail scope](https://developers.google.com/apps-script/reference/mail/mail-app); no OAuth token or password belongs in this repository.
+
+Check locally with node tools/test_contact.cjs and node tools/check_compact.cjs (requires Playwright and Chromium). Browser tests use a local fixture. On 2 November 2026 a separately authorized real text-challenge submission returned a successful delivery receipt and exactly one matching message was found in the owner’s Gmail inbox. If delivery fails, the direct Gmail link remains available.

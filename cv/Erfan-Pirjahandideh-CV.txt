@@ -1,0 +1,47 @@
+Erfan Pirjahandideh
+Computer vision and applied machine learning
+Darmstadt, Germany  |  erfanpj@gmail.com
+erfanpj.com (https://erfanpj.com/)  |  GitHub (https://github.com/erfanpj)  |  LinkedIn (https://www.linkedin.com/in/erfan-pirjahandideh)
+Professional profile
+Computer vision and AI research assistant at Fraunhofer IGD with eight years of experience in telecommunications IT. My work spans image synthesis, biometric evaluation, service monitoring and software development. My academic background includes artificial intelligence and machine learning studies at TU Darmstadt.
+How I work
+I start by finding the question behind a failure. I build the smallest useful comparison, test it against a baseline and share enough detail for someone else to challenge the result. That habit connects how I troubleshoot services with how I evaluate models.
+Technical skills
+Computer vision and generative models.  Python, PyTorch, CUDA, OpenCV, Hugging Face Diffusers and Datasets; Stable Diffusion, pretrained LoRA, face alignment and biometric embeddings.
+Evaluation and reproducibility.  Participant-held-out testing, simple baselines, EER and FMR/FNMR, experiment logging, identity-wise sampling and dataset integrity. Git, Linux, Docker and Slurm.
+Software and service operations.  Django, APIs, PostgreSQL, PHP, Laravel and JavaScript. Service monitoring, Jira integration, workflow automation, testing and technical documentation.
+Selected achievements
+Innovation recognition.  Received the MTN CEO Special Award for Innovation in April 2018.
+Service leadership.  Led a seven-person service desk handling more than 2,000 tickets a month at Behsa. Led the implementation of monitoring for more than 30 services at NAK.
+Research experience
+Computer Vision and AI Research Assistant
+Fraunhofer IGD, Darmstadt, Germany  |  February 2026–present
+Build reproducible image-synthesis and evaluation pipelines with Python, PyTorch, CUDA and Stable Diffusion. Align faces, extract 512-dimensional embeddings and compare biometric error rates across controlled experiments.
+Run experiments on A100 GPUs with Slurm. Apply quality scoring and identity-wise selection; verify dataset integrity and document evaluation procedures. Developed forms and review checklists for dental data acquisition.
+
+
+Erfan Pirjahandideh
+Engineering and operations experience
+Telecommunications IT
+NAK and Behsa, MCCI projects; AHS, MTN project  |  2016–2024
+NAK.  Led service-monitoring implementation and developed a Chrome extension for handling tickets.
+Behsa.  Led the service desk, integrated MCI ticketing with Jira and implemented ITIL-aligned workflows.
+AHS.  Automated management reporting and developed ticketing extensions and service-desk dashboards.
+Freelance software development and web design
+Independent  |  2005–present
+Develop responsive websites and applications using PHP, WordPress, Joomla and JavaScript. Use AI coding tools for implementation, debugging and documentation.
+Education
+Artificial intelligence and machine learning studies
+Technical University of Darmstadt (TU Darmstadt), Germany
+Software engineering and earlier AI studies
+Islamic Azad University
+B.Sc. and Associate Degree in Software Engineering. Earlier postgraduate study in AI: 20 credits.
+Research publication
+Co-author, “Personality Recognition from Text Based on Deep Learning with Recurrent Neural Network.” 5th International Conference on Fundamental Research in Computer Engineering and Information Technology, 2017.
+Professional training
+ISTQB software testing and DevOps Foundation (2021); Python Foundation and ITIL Foundation (2017).
+Languages
+Farsi: native   |   English: advanced   |   German: A1
+Independent work
+Selected examples include an EEG evaluation viewer, a support workflow and a Django campaign application. Demos and case notes, including the scope of AI coding assistance, are available in my portfolio.
+View selected projects (https://erfanpj.com/#work)
