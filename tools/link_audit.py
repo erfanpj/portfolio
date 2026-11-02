@@ -17,10 +17,19 @@ ALLOWED_PREFIXES = (
     "https://github.com/erfanpj/brain-signals-lab",
     "https://erfanpj.github.io/opsdesk-ai/",
     "https://github.com/erfanpj/opsdesk-ai",
+    "https://erfanpj.github.io/reachboard-showcase/",
+    "https://github.com/erfanpj/reachboard-showcase",
+    "https://erfanpj.github.io/recall-studio/",
+    "https://github.com/erfanpj/recall-studio",
+    "https://erfanpj.github.io/commonnest-showcase/",
+    "https://github.com/erfanpj/commonnest-showcase",
     "https://github.com/erfanpj",
+    "https://www.linkedin.com/in/erfan-pirjahandideh",
 )
 
-INTERNAL = re.compile(r"^(assets/|#|styles\.css)")
+INTERNAL = re.compile(
+    r"^(#|assets/|styles\.css|hero\.js|Erfan-Pirjahandideh-CV\.pdf|mailto:erfanpj@gmail.com)"
+)
 
 
 class LinkParser(HTMLParser):
@@ -43,7 +52,11 @@ def main() -> int:
     problems: list[str] = []
     checked: set[str] = set()
     for href in parser.hrefs:
-        if INTERNAL.match(href) or href.startswith("assets/ATTRIBUTION"):
+        if INTERNAL.match(href):
+            continue
+        if href.startswith("mailto:"):
+            if href != "mailto:erfanpj@gmail.com":
+                problems.append(f"unexpected mailto: {href}")
             continue
         if not href.startswith("http"):
             problems.append(f"unexpected relative external pattern: {href}")
@@ -54,20 +67,30 @@ def main() -> int:
         if href in checked:
             continue
         checked.add(href)
-        req = urllib.request.Request(href, method="HEAD", headers={"User-Agent": "portfolio-link-audit"})
+        headers = {"User-Agent": "portfolio-link-audit/1.0"}
+        req = urllib.request.Request(href, method="HEAD", headers=headers)
         try:
             with urllib.request.urlopen(req, timeout=20) as resp:
                 if resp.status >= 400:
                     problems.append(f"{href} -> HTTP {resp.status}")
         except urllib.error.HTTPError as exc:
-            if exc.code in (405, 403):
-                get = urllib.request.Request(href, headers={"User-Agent": "portfolio-link-audit"})
-                with urllib.request.urlopen(get, timeout=20) as resp:
-                    if resp.status >= 400:
-                        problems.append(f"{href} -> HTTP {resp.status}")
+            if exc.code in (405, 403, 501):
+                get = urllib.request.Request(href, headers=headers)
+                try:
+                    with urllib.request.urlopen(get, timeout=20) as resp:
+                        if resp.status >= 400:
+                            problems.append(f"{href} -> HTTP {resp.status}")
+                except urllib.error.HTTPError as get_exc:
+                    if get_exc.code == 999 and "linkedin.com" in href:
+                        continue
+                    problems.append(f"{href} -> HTTP {get_exc.code}")
+            elif exc.code == 999 and "linkedin.com" in href:
+                continue
             else:
                 problems.append(f"{href} -> HTTP {exc.code}")
         except Exception as exc:  # noqa: BLE001
+            if "linkedin.com" in href:
+                continue
             problems.append(f"{href} -> {exc}")
     if problems:
         print("LINK AUDIT FAIL")
