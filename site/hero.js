@@ -1,121 +1,106 @@
-(function () {
-  const heroFrame = document.querySelector(".heroFrame");
-  const heroScene = document.getElementById("hero-scene");
-  const playBtn = document.getElementById("hero-play");
-  const mobilePlay = document.getElementById("mobile-hero-play");
-  const mobileHero = document.getElementById("mobile-hero");
-  const menuToggle = document.getElementById("menu-toggle");
-  const menuPanel = document.getElementById("mobile-nav");
-  const menuClose = document.getElementById("menu-close");
-
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let paused = reducedMotion;
-
-  function applyMotionState() {
-    if (heroScene) heroScene.classList.toggle("still", paused);
-    if (mobileHero) mobileHero.classList.toggle("still", paused);
-    const label = paused ? "Play scene" : "Pause scene";
-    if (playBtn) {
-      playBtn.textContent = label;
-      playBtn.setAttribute("aria-pressed", String(paused));
-    }
-    if (mobilePlay) {
-      mobilePlay.textContent = paused ? "Play" : "Pause";
-      mobilePlay.setAttribute("aria-pressed", String(paused));
+// Menu, notes and dialogs share the browser's focus model. The diagram never blocks reading.
+(() => {
+  const desktop = document.querySelector('#hero-scene'), phone = document.querySelector('#mobile-hero');
+  const frame = document.querySelector('.heroFrame'), motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const play = [...document.querySelectorAll('#hero-play,#mobile-hero-play')];
+  let paused = motion.matches;
+  function renderMotion() {
+    for (const node of [desktop, phone]) node?.classList.toggle('still', paused);
+    for (const button of play) {
+      button.dataset.state = paused ? 'paused' : 'playing';
+      button.textContent = paused ? 'Play scene' : 'Pause scene';
+      button.removeAttribute('aria-pressed'); // The changing action name announces the state.
+      if (motion.matches) {
+        button.textContent = 'Static scene';
+        button.disabled = true;
+        button.title = 'Your device requests reduced motion.';
+      } else { button.disabled = false; button.removeAttribute('title'); }
     }
   }
-
-  function toggleMotion() {
-    paused = !paused;
-    applyMotionState();
+  play.forEach(b => b.addEventListener('click', () => { paused = !paused; renderMotion(); }));
+  motion.addEventListener('change', e => { paused = e.matches; renderMotion(); });
+  renderMotion();
+  function fit() {
+    if (!frame || !frame.clientWidth) return;
+    const scale = frame.clientWidth / 1440;
+    frame.style.setProperty('--r', scale); frame.style.height = (900 * scale) + 'px';
   }
+  if (frame) { new ResizeObserver(fit).observe(frame); fit(); }
 
-  if (heroFrame && heroScene) {
-    const fit = () => {
-      heroFrame.style.setProperty("--r", heroFrame.clientWidth / 1440);
-      heroFrame.style.height = heroFrame.clientWidth * (900 / 1440) + "px";
-    };
-    new ResizeObserver(fit).observe(heroFrame);
-    fit();
-  }
-
-  playBtn?.addEventListener("click", toggleMotion);
-  mobilePlay?.addEventListener("click", toggleMotion);
-
-  document.addEventListener("keydown", (ev) => {
-    if (ev.key !== " " && ev.code !== "Space") return;
-    const t = ev.target;
-    if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
-    if (!heroFrame && !mobileHero) return;
-    const inHero =
-      heroFrame?.contains(document.activeElement) ||
-      mobileHero?.contains(document.activeElement) ||
-      document.activeElement === document.body;
-    if (!inHero) return;
-    ev.preventDefault();
-    toggleMotion();
-  });
-
-  applyMotionState();
-
-  document.querySelectorAll(".case").forEach((link) => {
-    link.addEventListener("click", (ev) => {
-      ev.preventDefault();
-      const dialog = document.querySelector(link.getAttribute("href"));
-      if (!dialog || typeof dialog.showModal !== "function") return;
-      dialog.showModal();
-      dialog.addEventListener(
-        "close",
-        () => {
-          link.focus();
-        },
-        { once: true },
-      );
+  const cases = [...document.querySelectorAll('a.case')];
+  cases.forEach(link => {
+    const dialog = document.querySelector(link.hash);
+    if (!dialog || typeof dialog.showModal !== 'function') return;
+    link.addEventListener('click', e => {
+      e.preventDefault(); dialog.showModal();
+      dialog.addEventListener('close', () => link.focus({preventScroll:true}), {once:true});
+    });
+    dialog.addEventListener('click', e => {
+      if(e.target !== dialog) return;
+      const b=dialog.getBoundingClientRect();
+      if(e.clientX<b.left || e.clientX>b.right || e.clientY<b.top || e.clientY>b.bottom) dialog.close();
+    });
+    dialog.addEventListener('keydown',e=>{
+      if(e.key!=='Tab')return;
+      const list=[...dialog.querySelectorAll('button:not([disabled]),a[href]')];
+      if(e.shiftKey&&document.activeElement===list[0]){e.preventDefault();list.at(-1)?.focus();}
+      else if(!e.shiftKey&&document.activeElement===list.at(-1)){e.preventDefault();list[0]?.focus();}
     });
   });
 
-  document.querySelectorAll("dialog").forEach((dialog) => {
-    dialog.addEventListener("cancel", (ev) => {
-      ev.preventDefault();
-      dialog.close();
+  const menu = document.querySelector('#mobile-nav'), toggle = document.querySelector('#menu-toggle');
+  if(menu && toggle) {
+    const dismiss = () => { if(menu.open) menu.close(); toggle.setAttribute('aria-expanded','false');toggle.focus({preventScroll:true}); };
+    toggle.addEventListener('click', () => {
+      if(menu.open) return dismiss();
+      menu.showModal(); toggle.setAttribute('aria-expanded','true'); document.querySelector('#menu-close')?.focus();
     });
-  });
-
-  function openMenu() {
-    if (!menuPanel || !menuToggle) return;
-    menuPanel.hidden = false;
-    menuToggle.setAttribute("aria-expanded", "true");
-    menuClose?.focus();
+    document.querySelector('#menu-close')?.addEventListener('click',dismiss);
+    menu.addEventListener('cancel',e=>{e.preventDefault();dismiss();});
+    menu.addEventListener('close',() => {toggle.setAttribute('aria-expanded','false');});
+    menu.addEventListener('click',e=>{
+      const a=e.target.closest('a');
+      if(a) {
+        const target=a.hash&&document.getElementById(a.hash.slice(1)); dismiss();
+        if(target){ target.setAttribute('tabindex','-1'); target.focus({preventScroll:true}); }
+        return;
+      }
+      const b=menu.getBoundingClientRect(); if(e.target===menu&&(e.clientX<b.left||e.clientX>b.right||e.clientY<b.top||e.clientY>b.bottom))dismiss();
+    });
+    menu.addEventListener('keydown',e=>{
+      if(e.key!=='Tab')return;
+      const active=[...menu.querySelectorAll('a[href],button:not([disabled])')];
+      if(e.shiftKey && document.activeElement===active[0]) {e.preventDefault();active.at(-1).focus();}
+      else if(!e.shiftKey && document.activeElement===active.at(-1)) {e.preventDefault();active[0].focus();}
+    });
+    matchMedia('(min-width:1025px)').addEventListener('change',e=>{if(e.matches)dismiss();});
   }
 
-  function closeMenu() {
-    if (!menuPanel || !menuToggle) return;
-    menuPanel.hidden = true;
-    menuToggle.setAttribute("aria-expanded", "false");
-    menuToggle.focus();
+  const phoneMotifs=[...document.querySelectorAll('.mobileChem button')];
+  const desktopMotifs=[...document.querySelectorAll('.hor2')];
+  const note=document.querySelector('#mobile-motif-note');
+  function clearMotifs(){
+    for(const b of [...desktopMotifs,...phoneMotifs]) {
+      b.removeAttribute('data-open');b.setAttribute('aria-expanded','false');
+      if(b.matches(':hover,:focus-visible')) b.dataset.dismissed='true';
+    }
+    if(note){note.hidden=true; note.textContent='';}
   }
-
-  menuToggle?.addEventListener("click", () => {
-    if (menuPanel?.hidden) openMenu();
-    else closeMenu();
-  });
-  menuClose?.addEventListener("click", closeMenu);
-  menuPanel?.addEventListener("click", (ev) => {
-    if (ev.target === menuPanel) closeMenu();
-  });
-  menuPanel?.querySelectorAll("a").forEach((a) => {
-    a.addEventListener("click", closeMenu);
-  });
-
-  document.addEventListener("keydown", (ev) => {
-    if (ev.key === "Escape" && menuPanel && !menuPanel.hidden) closeMenu();
-  });
-
-  document.querySelectorAll(".mobileChem button").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const on = btn.getAttribute("aria-pressed") === "true";
-      document.querySelectorAll(".mobileChem button").forEach((b) => b.setAttribute("aria-pressed", "false"));
-      btn.setAttribute("aria-pressed", on ? "false" : "true");
+  phoneMotifs.forEach((b,i)=>b.addEventListener('click',()=>{
+    const open=b.getAttribute('aria-expanded')==='true';clearMotifs();
+    if(open||!note)return;
+    const source=document.getElementById('desk-tip-'+i);
+    const msg=source ? [...source.childNodes].filter(n=>n.nodeType===Node.TEXT_NODE).map(n=>n.textContent).join('').trim() : '';
+    if(!msg)return;note.textContent=msg;note.hidden=false;b.setAttribute('aria-expanded','true');
+  }));
+  desktopMotifs.forEach(b=>{
+    b.addEventListener('click',()=>{
+      const open=b.dataset.open==='true';clearMotifs();
+      if(!open){b.dataset.open='true';delete b.dataset.dismissed;b.setAttribute('aria-expanded','true');}
     });
+    for(const type of ['pointerenter','focus']) b.addEventListener(type,()=>{delete b.dataset.dismissed;});
+    b.addEventListener('blur', clearMotifs);
   });
+  document.addEventListener('click',e=>{if(!e.target.closest('.hor2,.mobileChem,#mobile-motif-note'))clearMotifs();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')clearMotifs();});
 })();

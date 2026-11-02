@@ -83,7 +83,7 @@ def main() -> None:
         '@font-face{font-family:"Familjen Grotesk";src:url("assets/FamiljenGrotesk.ttf") format("truetype");font-weight:400 700;font-display:swap}\n'
         '@font-face{font-family:"DM Sans";src:url("assets/dm-sans.woff2") format("woff2");font-weight:100 900;font-display:swap}\n'
     )
-    (SITE / "styles.css").write_text(fonts + css + EXTRA_CSS, encoding="utf-8")
+    (SITE / "styles.css").write_text((fonts + css + EXTRA_CSS).replace("max-width:870px","max-width:1024px"), encoding="utf-8")
 
     hero = extract_hero_inner(html)
     # chemistry tooltips: illustration disclaimer
@@ -105,7 +105,8 @@ def main() -> None:
     )
 
     index_path = SITE / "index.html"
-    index_path.write_text(build_index(hero), encoding="utf-8")
+    from finish_evidence import finish
+    index_path.write_text(finish(build_index(hero)), encoding="utf-8")
     print("Wrote", index_path, "and styles.css")
 
 
@@ -232,7 +233,7 @@ def build_index(hero_block: str) -> str:
 <p><time>31 Oct 2026</time><span>Released the EEG evaluation viewer with saved fold and participant results.</span></p>
 <p><time>01 Nov 2026</time><span>Released OpsDesk's fictional approval demo with the rules and model comparison.</span></p>
 <p><time>02 Nov 2026</time><span>Added Recall Studio and Commonnest as supporting demos in the portfolio index.</span></p>
-<p><time>02 Nov 2026</time><span>Shipped the Evidence Portfolio layout for erfanpj.com with animated hero and case-study dialogs.</span></p>
+<p><time>02 Nov 2026</time><span>Prepared a skills-first CV and a responsive portfolio design with project case notes.</span></p>
 </div></div></section>
 </main>
 
@@ -270,7 +271,7 @@ def build_index(hero_block: str) -> str:
 <h3>What happens when someone submits a campaign twice?</h3>
 <dl>
 <dt>Erfan's choice</dt><dd>Fix quotes at submission, scope drafts per advertiser, and keep audit history unchanged on retries.</dd>
-<dt>Baseline / failure mode</dt><dd>Client-side totals and anonymous drafts — easy to double-submit or lose ownership context.</dd>
+<dt>Baseline / failure mode</dt><dd>A repeat submission could change a quote or create a second audit entry; a draft must belong to the advertiser who opened it.</dd>
 <dt>Result</dt><dd>Django backend enforces ownership and locked totals; public static fixture shows fictional placements at draft (75 RB credits).</dd>
 <dt>Limits</dt><dd>The GitHub Pages demo is a browser simulation. The Django app is separate and local; the fixture does not run that backend.</dd>
 </dl>
