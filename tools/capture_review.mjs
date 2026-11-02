@@ -8,10 +8,10 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const siteRoot = path.resolve(here, "..");
+const siteRoot = path.resolve(here, "..", "site");
 const reviewRoot = fs.mkdtempSync(path.join(os.tmpdir(), "portfolio-review-"));
 const mount = path.join(reviewRoot, "portfolio");
-fs.cpSync(siteRoot, mount, { recursive: true, filter: (src) => !src.includes("node_modules") });
+fs.cpSync(siteRoot, mount, { recursive: true });
 const server = spawn("python", ["-m", "http.server", "8792", "--directory", reviewRoot], {
   stdio: "ignore",
 });

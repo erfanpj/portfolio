@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Erfan Pirjahandideh — portfolio</title>
+  <meta name="description" content="Applied ML and workflow projects with live demos.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to projects</a>
+
+  <header class="masthead">
+    <p class="eyebrow">Erfan Pirjahandideh</p>
+    <h1>I build ML experiments and the tools to review them.</h1>
+    <p class="intro">I work on applied machine learning and full-stack tools. I'm especially interested in how brain-signal models perform on people they haven't seen before.</p>
+
+    <div class="action-strip" aria-label="Live demos">
+      <a class="btn btn-teal" href="https://erfanpj.github.io/brain-signals-lab/viewer/">Open EEG viewer</a>
+      <a class="btn btn-orange" href="https://erfanpj.github.io/opsdesk-ai/">OpsDesk fixture</a>
+    </div>
+
+    <nav class="jump-nav" aria-label="On this page">
+      <a href="#brain-signals-lab">Brain Signals Lab</a>
+      <a href="#opsdesk-ai">OpsDesk</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <article class="case case-eeg" id="brain-signals-lab">
+      <div class="case-copy">
+        <h2>Brain Signals Lab</h2>
+        <p class="case-lede">Motor-imagery EEG on public PhysioNet data, scored on participants the model never trained on.</p>
+        <p>I kept each participant's recordings in a single fold. Across <strong>50</strong> people and <strong>five</strong> folds, CSP + LDA averaged <strong>61.8%</strong> accuracy. A most-frequent-class baseline reached <strong>50.4%</strong>. The viewer loads saved reports only—nothing retrains when you open a page.</p>
+        <p class="try-line"><strong>Try it:</strong> open <em>Participants</em> and filter below chance to see spread across people.</p>
+        <p class="note">Engineering results on one dataset—not a clinical or neuroscience claim.</p>
+        <p class="links">
+          <a class="btn btn-teal" href="https://erfanpj.github.io/brain-signals-lab/viewer/">Live viewer</a>
+          <a class="btn btn-ghost" href="https://github.com/erfanpj/brain-signals-lab">Code</a>
+        </p>
+      </div>
+      <figure class="case-media">
+        <a href="assets/brain-viewer-evaluation.png" target="_blank" rel="noopener">
+          <img src="assets/brain-viewer-evaluation.png" width="960" height="540" alt="Evaluation section of the Brain Signals Lab viewer with fold accuracy chart.">
+        </a>
+        <figcaption>Saved evaluation report in the public viewer (<a href="assets/ATTRIBUTION.md">screenshot source</a>).</figcaption>
+      </figure>
+    </article>
+
+    <article class="case case-ops" id="opsdesk-ai">
+      <div class="case-copy">
+        <h2>OpsDesk AI</h2>
+        <p class="case-lede">A fictional support desk where proposals cite the handbook and a person approves before anything runs.</p>
+        <p>Changing an approved ticket proposal invalidates its approval. A second execution request returns the first receipt. I compared a rules baseline with a local language model on <strong>60</strong> fictional tickets: the rules produced <strong>37</strong> fully correct proposals and the model produced <strong>25</strong>.</p>
+        <p class="try-line"><strong>Try it:</strong> approve a plan change on the fixture, then repeat the run and watch duplicate handling.</p>
+        <p class="note">The browser simulates the workflow; the Python service runs locally. All customer data is synthetic.</p>
+        <p class="links">
+          <a class="btn btn-orange" href="https://erfanpj.github.io/opsdesk-ai/">Live fixture</a>
+          <a class="btn btn-ghost" href="https://github.com/erfanpj/opsdesk-ai">Code</a>
+        </p>
+      </div>
+      <figure class="case-media">
+        <a href="assets/opsdesk-fixture-simulation-mobile.png" target="_blank" rel="noopener">
+          <img src="assets/opsdesk-fixture-simulation-mobile.png" width="390" height="844" alt="OpsDesk mobile fixture showing a receipt after simulated approval.">
+        </a>
+        <figcaption>Mobile-width fixture replay (<a href="assets/ATTRIBUTION.md">screenshot source</a>).</figcaption>
+      </figure>
+    </article>
+
+    <p class="ai-note">I used AI coding assistants on these portfolio repos; each project README describes scope and local-only pieces.</p>
+  </main>
+
+  <footer class="site-footer">
+    <p><a href="https://github.com/erfanpj">GitHub</a></p>
+  </footer>
+</body>
+</html>
