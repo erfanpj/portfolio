@@ -1,6 +1,6 @@
-@font-face{font-family:"Familjen Grotesk";src:url("assets/FamiljenGrotesk.ttf") format("truetype");font-weight:400 700;font-display:swap}
+@font-face{font-family:"Familjen Grotesk";src:url("assets/FamiljenGrotesk.woff2") format("woff2"),url("assets/FamiljenGrotesk.ttf") format("truetype");font-weight:400 700;font-display:swap}
 @font-face{font-family:"DM Sans";src:url("assets/dm-sans.woff2") format("woff2");font-weight:100 900;font-display:swap}
-@font-face{font-family:"Familjen Grotesk";src:url("assets/FamiljenGrotesk.ttf") format("truetype");font-weight:400 700;font-display:swap}@font-face{font-family:"DM Sans";src:url("assets/dm-sans.woff2") format("woff2");font-weight:100 900;font-display:swap}body{margin:0}
+@font-face{font-family:"Familjen Grotesk";src:url("assets/FamiljenGrotesk.woff2") format("woff2"),url("assets/FamiljenGrotesk.ttf") format("truetype");font-weight:400 700;font-display:swap}@font-face{font-family:"DM Sans";src:url("assets/dm-sans.woff2") format("woff2");font-weight:100 900;font-display:swap}body{margin:0}
 a{color:#EDE9E3;text-decoration:none}
 .top{z-index:3}
 .btn{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:12px 22px;border-radius:10px;font:600 16px 'Familjen Grotesk',sans-serif;border:1px solid #EDE9E3}
