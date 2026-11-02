@@ -16,7 +16,7 @@ const server = spawn("python", ["-m", "http.server", "8792", "--directory", revi
   stdio: "ignore",
 });
 const ORIGIN = "http://127.0.0.1:8792";
-const outDir = path.join(siteRoot, "docs", "review");
+const outDir = path.join(path.resolve(here, ".."), "docs", "review");
 
 function browser() {
   for (const p of [
