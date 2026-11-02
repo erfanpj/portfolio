@@ -69,9 +69,16 @@ def project(name, url, body):
     p=d.add_paragraph(style="Heading 2");p.add_run(name+"   ");hyperlink(p,"Demo",url)
     source.append(name+" — "+url);line(body)
 
-line("Erfan Pirjahandideh","Title")
+name = "Erfan Pirjahandideh"
+title = d.add_paragraph(style="Title")
+mark = title.add_run().add_picture(
+    str(Path(__file__).resolve().parents[1] / "cv" / "mark.png"), width=Mm(8)
+)
+mark._inline.docPr.set("descr", "")
+title.add_run("  " + name)
+source.append(name)
 line("Computer vision and applied machine learning","Discipline")
-links([("Darmstadt, Germany",None),("erfanpj@gmail.com","mailto:erfanpj@gmail.com")])
+links([("Darmstadt, Germany",None),("erfan@erfanpj.com","mailto:erfan@erfanpj.com")])
 links([("erfanpj.com","https://erfanpj.com/"),("GitHub","https://github.com/erfanpj"),("LinkedIn","https://www.linkedin.com/in/erfan-pirjahandideh")])
 line("Professional profile","Heading 1")
 line("Computer vision and AI research assistant at Fraunhofer IGD with eight years of experience in telecommunications IT. My work spans image synthesis, biometric evaluation, service monitoring and software development. My academic background includes artificial intelligence and machine learning studies at TU Darmstadt.")

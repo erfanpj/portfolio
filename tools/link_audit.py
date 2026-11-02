@@ -44,7 +44,7 @@ def main():
     for href in sorted(p.links|p.assets):
         u=urlsplit(href)
         if u.scheme=="https" and href in EXTERNAL:public.add(href)
-        elif href=="mailto:erfanpj@gmail.com":pass
+        elif href=="mailto:erfan@erfanpj.com":pass
         elif u.scheme or u.netloc:issues.append(f"unrecognized destination: {href}")
         elif not u.path and u.fragment:
             if unquote(u.fragment) not in p.ids:issues.append(f"missing fragment {href}")
