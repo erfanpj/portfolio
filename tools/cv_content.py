@@ -16,14 +16,14 @@ AVAILABILITY = "Available for full-time roles now; start date flexible. Open to 
 EDU_MSC = ("role", "M.Sc. Artificial Intelligence and Machine Learning", "TU Darmstadt, Germany", "2024 – present")
 EDU_MSC_NOTE = ("p", f"In progress; expected graduation {GRAD}.")
 EDU_REST_FULL = [
-    ("role", "AI master’s studies", "Islamic Azad University, Iran", "2015 – 2019"),
+    ("role", "AI master’s studies", "Islamic Azad University", "2015 – 2019"),
     ("p", "20 credits completed; no thesis; degree not awarded."),
-    ("role", "B.Sc. Software Engineering", "Islamic Azad University, Iran", "2009 – 2013"),
-    ("role", "Associate Degree in Software Engineering", "Islamic Azad University, Iran", "2006 – 2009"),
+    ("role", "B.Sc. Software Engineering", "Islamic Azad University", "2009 – 2013"),
+    ("role", "Associate Degree in Software Engineering", "Islamic Azad University", "2006 – 2009"),
 ]
 EDU_REST_SHORT = [
-    ("role", "B.Sc. and Associate Degree in Software Engineering", "Islamic Azad University, Iran", "2006 – 2013"),
-    ("p", "Earlier AI master’s coursework: 20 credits completed; degree not awarded."),
+    ("role", "B.Sc. Software Engineering", "Islamic Azad University", "2009 – 2013"),
+    ("role", "Associate Degree in Software Engineering", "Islamic Azad University", "2006 – 2009"),
 ]
 
 # ---------------- Fraunhofer: generic only, no project-specific study details ----------------
@@ -32,23 +32,23 @@ FH_GENERIC = "Contribute to image-synthesis and biometric-evaluation experiments
 FH_PUBLIC_TOOLS = "Work with Python, PyTorch and GPU computing through Slurm; document evaluation methods and their limits."
 
 # ---------------- telecom (client names as in Erfan's earlier CVs: MCCI and MTN) ----------------
-NAK_ROLE = ("role", "QA Team & Project Lead | Senior Developer Expert", "NAK (MCCI project, telecommunications), Tehran, Iran", "2022 – 2024")
+NAK_ROLE = ("role", "QA Team & Project Lead | Senior Developer Expert", "NAK (MCCI project, telecommunications)", "2022 – 2024")
 NAK = ["Led the implementation of a monitoring system covering more than 30 services.",
        "Developed a Chrome ticketing extension (jQuery, HTML, CSS) that reduced ticket-resolution time by 25%.",
        "Built Python and Groovy tools and Power BI dashboards to automate workflows and report on operations and project status."]
-BEHSA_ROLE = ("role", "Service Desk & Service Management Team Leader", "Behsa (MCCI project, telecommunications), Tehran, Iran", "2018 – 2022")
+BEHSA_ROLE = ("role", "Service Desk & Service Management Team Leader", "Behsa (MCCI project, telecommunications)", "2018 – 2022")
 BEHSA = ["Set up and led a seven-person service desk handling more than 2,000 tickets a month; integrated the MCCI ticketing system with Jira.",
          "Introduced ITIL-aligned workflows that improved response times by 40%; coordinated incident and request resolution against SLAs."]
-AHS_ROLE = ("role", "First Technical Support & Helpdesk Engineer", "AHS (MTN Irancell project, telecommunications), Tehran, Iran", "2016 – 2018")
+AHS_ROLE = ("role", "First Technical Support & Helpdesk Engineer", "AHS (MTN project, telecommunications)", "2016 – 2018")
 AHS = ["Automated daily management reports used by senior management and the CIO, improving report accuracy by 30%.",
        "Built Chrome extensions and service-desk dashboards that reduced manual workload by 20%; built Telegram bots for automated report updates."]
-TELECOM_SHORT_ROLE = ("role", "Telecommunications IT", "NAK and Behsa (MCCI projects), AHS (MTN Irancell project), Tehran, Iran", "2016 – 2024")
+TELECOM_SHORT_ROLE = ("role", "Telecommunications IT", "NAK and Behsa (MCCI projects), AHS (MTN project)", "2016 – 2024")
 TELECOM_SHORT = ["Led a seven-person service desk (2,000+ tickets a month) and the monitoring rollout for 30+ services; integrated ticketing with Jira.",
                  "Reduced ticket-resolution time by 25% with a Chrome ticketing extension and improved response times by 40% with ITIL-aligned workflows.",
                  "Automated management reporting (30% more accurate) and built dashboards that reduced manual service-desk work by 20%."]
 FREELANCE_ROLE = ("role", "Freelance Software Developer & Web Designer", "Independent", "2005 – present")
 FREELANCE = ["Build web applications, responsive websites, dashboards and workflow automations with PHP, WordPress, Joomla, JavaScript and Python, using AI-assisted development (Cursor, ChatGPT/Codex)."]
-EARLIER = [("role", ".NET Programmer", "Charkheh Dadehaye Sabz, Iran", "2011 – 2012"),
+EARLIER = [("role", ".NET Programmer", "Charkheh Dadehaye Sabz", "2011 – 2012"),
            ("b", "Implemented CMS and CLM functionality with ASP.NET, C#, jQuery and MVC."),
            ("role", "Robot Programmer", "Islamic Azad University Robotics Team", "2008 – 2010"),
            ("b", "Programmed robotic systems in C++; Student of the Year recognition, 2010."),
@@ -65,10 +65,10 @@ P = {
    ("b", "Participant-held-out EEG evaluation (50 participants, 2,245 trials, five folds): CSP + LDA 61.8% mean accuracy versus a 50.4% majority-class baseline.")],
  "opsdesk": [proj("OpsDesk AI — human-reviewed support automation", "Local prototype · Browser simulation", "opsdesk-ai"),
    ("b", "Built a local support-assistance workflow: handbook retrieval (keyword, BM25, dense, hybrid), proposals from a small local language model, human approval and mock actions."),
-   ("b", "Editing a proposal cancels its approval; mock execution is idempotent per approval; every step is written to a hash-chained audit log. A FastAPI review UI and an MCP adapter share the same service."),
+   ("b", "Editing a proposal invalidates its approval. On the supported local service path, repeated execution with the same approval ID does not repeat the mock action. Review and execution events are recorded in a hash-chained audit log. The FastAPI review UI and MCP adapter share the same service."),
    ("b", "On 60 held-out fictional tickets, rules produced 37 fully correct proposals versus 25 from the local model, so I kept the rules as the default.")],
  "opsdesk_short": [proj("OpsDesk AI — human-reviewed support automation", "Local prototype", "opsdesk-ai"),
-   ("b", "Local retrieval and language-model proposals with human approval, idempotent mock actions and an audit log. Rules 37/60 versus local model 25/60 on held-out fictional tickets.")],
+   ("b", "Built a local support-automation prototype with handbook retrieval, language-model proposals, human approval and an audit log. The supported service path prevents duplicate mock execution per approval ID. On 60 held-out fictional tickets, rules produced 37 fully correct proposals versus 25 from the local model.")],
  "reach_line": [proj("Reachboard — Django Workflow Showcase", "Fictional-data application · Browser simulation available", "reachboard-showcase"),
    ("b", "Django workflow demonstration with server-side pricing, ownership checks, controlled state changes and an audit history; repeated submissions do not create duplicate history entries.")],
  "breast": [proj("Breast Cancer Classifier Comparison", "Completed evaluation · Public benchmark · Not a clinical tool", "Breast_Cancer_Project"),
@@ -90,7 +90,7 @@ SK = {
  "proc": ("Process & delivery", "ITIL, Jira, SCSM, SLA/OLA, QA and software testing, workflow automation, stakeholder coordination, team leadership."),
 }
 def skills(keys): return [("kv", SK[k][0], SK[k][1]) for k in keys]
-PUB = "Co-author, “Personality Recognition from Text Based on Deep Learning with Recurrent Neural Network.” 5th International Conference on Fundamental Research in Computer Engineering and Information Technology, 2017."
+PUB = "Co-author, “Personality Recognition from Text Based on Deep Learning with Recurrent Neural Network” (conference paper, 2017)."
 AWARD = "CEO Special Award for Innovation, MTN, April 2018."
 TRAINING = "ISTQB software-testing training and DevOps Foundation (2021); Python Foundation and ITIL Foundation (2017)."
 LANGS = "Persian/Farsi — Native | English — Advanced | German — A1"

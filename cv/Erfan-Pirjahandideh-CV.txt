@@ -17,13 +17,13 @@ Research & Professional Experience
 Computer Vision & AI Research Assistant · Fraunhofer IGD, Darmstadt, Germany | Feb 2026 – present
 • Contribute to image-synthesis and biometric-evaluation experiments in an ongoing research project, with an emphasis on reproducible pipelines, controlled comparisons and documented evaluation.
 • Work with Python, PyTorch and GPU computing through Slurm; document evaluation methods and their limits.
-QA Team & Project Lead | Senior Developer Expert · NAK (MCCI project, telecommunications), Tehran, Iran | 2022 – 2024
+QA Team & Project Lead | Senior Developer Expert · NAK (MCCI project, telecommunications) | 2022 – 2024
 • Led the implementation of a monitoring system covering more than 30 services.
 • Developed a Chrome ticketing extension (jQuery, HTML, CSS) that reduced ticket-resolution time by 25%.
-Service Desk & Service Management Team Leader · Behsa (MCCI project, telecommunications), Tehran, Iran | 2018 – 2022
+Service Desk & Service Management Team Leader · Behsa (MCCI project, telecommunications) | 2018 – 2022
 • Set up and led a seven-person service desk handling more than 2,000 tickets a month; integrated the MCCI ticketing system with Jira.
 • Introduced ITIL-aligned workflows that improved response times by 40%; coordinated incident and request resolution against SLAs.
-First Technical Support & Helpdesk Engineer · AHS (MTN Irancell project, telecommunications), Tehran, Iran | 2016 – 2018
+First Technical Support & Helpdesk Engineer · AHS (MTN project, telecommunications) | 2016 – 2018
 • Automated daily management reports used by senior management and the CIO, improving report accuracy by 30%.
 • Built Chrome extensions and service-desk dashboards that reduced manual workload by 20%; built Telegram bots for automated report updates.
 Freelance Software Developer & Web Designer · Independent | 2005 – present
@@ -36,7 +36,7 @@ Brain Signals Lab — EEG motor imagery · *Completed evaluation · Public datas
 • CSP + LDA reached 61.8% mean accuracy versus a 50.4% majority-class baseline (participant median 57.8%); a reduced EEGNet variant reached 53.9%. Results apply to this evaluated dataset subset, not to EEG decoding in general.
 OpsDesk AI — human-reviewed support automation · *Local prototype · Browser simulation* | github.com/erfanpj/opsdesk-ai
 • Built a local support-assistance workflow: handbook retrieval (keyword, BM25, dense, hybrid), proposals from a small local language model, human approval and mock actions.
-• Editing a proposal cancels its approval; mock execution is idempotent per approval; every step is written to a hash-chained audit log. A FastAPI review UI and an MCP adapter share the same service.
+• Editing a proposal invalidates its approval. On the supported local service path, repeated execution with the same approval ID does not repeat the mock action. Review and execution events are recorded in a hash-chained audit log. The FastAPI review UI and MCP adapter share the same service.
 • On 60 held-out fictional tickets, rules produced 37 fully correct proposals versus 25 from the local model, so I kept the rules as the default.
 Breast Cancer Classifier Comparison · *Completed evaluation · Not a clinical tool* | github.com/erfanpj/Breast_Cancer_Project
 • Leakage-aware rework with nested cross-validation; on 143 held-out samples a tuned MLP (F1 0.950) matched an untuned logistic-regression baseline (0.951).
@@ -52,9 +52,8 @@ Education
 M.Sc. Artificial Intelligence and Machine Learning · TU Darmstadt, Germany | 2024 – present
 In progress; expected graduation 2027.
 
-B.Sc. and Associate Degree in Software Engineering · Islamic Azad University, Iran | 2006 – 2013
-Earlier AI master’s coursework: 20 credits completed; degree not awarded.
-
+B.Sc. Software Engineering · Islamic Azad University | 2009 – 2013
+Associate Degree in Software Engineering · Islamic Azad University | 2006 – 2009
 
 Technical Skills
 
@@ -66,7 +65,7 @@ Process & delivery: ITIL, Jira, SCSM, SLA/OLA, QA and software testing, workflow
 
 Publication & Award
 
-Co-author, “Personality Recognition from Text Based on Deep Learning with Recurrent Neural Network.” 5th International Conference on Fundamental Research in Computer Engineering and Information Technology, 2017.
+Co-author, “Personality Recognition from Text Based on Deep Learning with Recurrent Neural Network” (conference paper, 2017).
 
 CEO Special Award for Innovation, MTN, April 2018.
 

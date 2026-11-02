@@ -236,7 +236,7 @@
 <h2 id="case-title-1">OpsDesk AI</h2>
 <h3>When should a support assistant stop and ask?</h3>
 <dl>
-<dt>My choice</dt><dd>Local retrieval plus a small local LLM that only proposes. A person approves; any edit cancels the approval; the approval id makes mock execution idempotent; every step is written to a hash-chained audit log. FastAPI review screen and an MCP adapter go through the same desk.</dd>
+<dt>My choice</dt><dd>Local retrieval plus a small local LLM that only proposes. A person approves; editing a proposal invalidates its approval. On the supported local service path, repeating execution with the same approval ID does not repeat the mock action. Review and execution events are recorded in a hash-chained audit log. FastAPI review screen and an MCP adapter go through the same desk.</dd>
 <dt>Baseline / failure mode</dt><dd>Rules-only proposals vs a local model on 60 held-out fictional tickets — neither is production support software.</dd>
 <dt>Result</dt><dd>Rules: 37/60 fully correct proposals; local model: 25/60. So I kept rules as the default and the model as an option. Duplicate execution requests return the first receipt.</dd>
 <dt>Limits</dt><dd>The browser demo is a simulation; the Python service runs locally. Fictional tickets only, no real customer systems. Not production software.</dd>
