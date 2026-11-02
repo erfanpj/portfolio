@@ -9,7 +9,7 @@ from urllib.request import Request, urlopen
 ROOT=Path(__file__).resolve().parents[1]/"site"
 PROJECTS={"brain-signals-lab","opsdesk-ai","reachboard-showcase","recall-studio","commonnest-showcase"}
 LINKEDIN="https://www.linkedin.com/in/erfan-pirjahandideh"
-EXTERNAL={LINKEDIN,"https://github.com/erfanpj","https://erfanpj.github.io/brain-signals-lab/viewer/"}|{f"https://github.com/erfanpj/{p}" for p in PROJECTS}|{f"https://erfanpj.github.io/{p}/" for p in PROJECTS}
+EXTERNAL={LINKEDIN,"https://policies.google.com/privacy","https://github.com/erfanpj","https://erfanpj.github.io/brain-signals-lab/viewer/"}|{f"https://github.com/erfanpj/{p}" for p in PROJECTS}|{f"https://erfanpj.github.io/{p}/" for p in PROJECTS}
 
 
 class Page(HTMLParser):

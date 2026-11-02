@@ -19,6 +19,12 @@ The browser check requires Playwright and Chromium; set `PLAYWRIGHT_MODULE` or `
 
 Edit the public site in `site/`. The original direction boards and original one-off builders document the first release; they are not inputs for regenerating the current public HTML. Update `tools/build_cv.py` when CV facts change, export the Word master to PDF, check both pages, and update the expected PDF fingerprint in the smoke check.
 
+## Portfolio analytics
+
+The [GA4 property for erfanpj.com](https://analytics.google.com/analytics/web/#/a414339311p561967861/reports/intelligenthome) uses web stream `G-WHZYD0QJF8`. The site loads the Google tag on its production domain only after the visitor allows analytics. The footer’s **Privacy & analytics** control can change that choice. Enhanced measurement is off in the stream. The site counts page views, CV download clicks and project opens; it omits form entries, query strings and fragments.
+
+Run `node tools/check_analytics.cjs` to check consent, event selection and withdrawal. With `--real-tag` the check loads Google’s public library and intercepts its collection requests locally.
+
 ## Release
 
 The Pages workflow publishes `site/` from main. Verify the custom-domain HTTPS response, assets, real CAPTCHA challenge and reviewed PDF at the final address. An inbox delivery test is separate from a successful build and must use synthetic data.
