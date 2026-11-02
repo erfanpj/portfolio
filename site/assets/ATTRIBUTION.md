@@ -6,5 +6,6 @@ Images are committed copies from published project repositories (not stock art).
 |---|---|---|---|
 | `assets/brain-viewer-evaluation.png` | [erfanpj/brain-signals-lab](https://github.com/erfanpj/brain-signals-lab) | `docs/evidence/viewer-evaluation.png` | Evaluation section of the public static viewer evidence set. |
 | `assets/opsdesk-fixture-simulation-mobile.png` | [erfanpj/opsdesk-ai](https://github.com/erfanpj/opsdesk-ai) | `docs/images/opsdesk-fixture-simulation-mobile.png` | Mobile-width fixture replay (390×844). |
+| `assets/reachboard-django-catalogue-desktop.png` | [erfanpj/reachboard-showcase](https://github.com/erfanpj/reachboard-showcase) | `docs/evidence/catalog-desktop-en.png` | **Local Django** English catalogue (1280×720); SHA-256 `4470633531BE843EAF98C4051C564849EDB0E98668353FCC305D1893EAAE1E08`. Not the public static fixture UI. |
 
 Licences follow each upstream repository (Brain: MIT + data citation in repo; OpsDesk: MIT).
