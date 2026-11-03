@@ -68,3 +68,27 @@
 .heroFrame .hlab:not(.illustration-note) span{display:block;white-space:nowrap;margin:0 -20px;font-size:12.5px}
 @media(max-width:599px) and (max-height:720px){.mobileHormones{margin:4px 0}.mh{font-size:11px;gap:2px;min-height:40px}.mh svg{width:24px;height:24px;padding:2px}.mh-note{font-size:11px;margin-bottom:4px}}
 @media(max-width:599px) and (max-height:600px){.mobileHormones,.mh-note{display:none}}
+/* 2026-11-03 hero v3: iconic buttons with explanations, larger portrait, beam from the forehead lens into step 1 */
+.hb{position:relative;gap:8px;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+.hb .bi{flex:none;width:18px;height:18px}
+.hb .hb-short{display:none}
+.hb-tip{position:absolute;z-index:20;display:none;width:max-content;max-width:260px;padding:9px 12px;border-radius:9px;background:#EDE9E3;color:#16151A;text-align:left;font:400 14px/1.4 'DM Sans',sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.45);pointer-events:none;white-space:normal}
+.heroFrame .hb-tip{left:0;top:calc(100% + 8px)}
+.hb:focus-visible .hb-tip,.hb[data-tip=open] .hb-tip{display:block}
+@media(hover:hover){.hb:hover .hb-tip{display:block}}
+.hb[data-tip=closed] .hb-tip{display:none!important}
+.mobileHero .mact{display:flex!important;flex-wrap:nowrap;gap:6px;position:relative}
+.mobileHero .mobileIntro{min-width:0}
+@media(max-width:1024px){.mobileHero{grid-template-columns:minmax(0,1fr)}}
+@media(min-width:600px) and (max-width:1024px),(min-width:475px) and (max-height:550px) and (max-width:1024px){.mobileHero{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.mobileHero .mact a.hb{flex:1 1 auto;min-width:0;justify-content:center;gap:5px;min-height:44px;padding:6px;font-size:13px;position:static;white-space:nowrap}
+.mobileHero .mact a.hb:first-child{flex-grow:1.6}
+.mobileHero .hb .hb-long{display:none}.mobileHero .hb .hb-short{display:inline}
+.mobileHero .hb-tip{left:0;right:0;bottom:calc(100% + 8px);width:auto;max-width:none}
+@media(max-width:384px){.mobileHero .mact a.hb:nth-child(n+3){flex:0 0 44px;padding:0}.mobileHero .mact a.hb:nth-child(n+3) .hb-short{display:none}}
+.beam{fill:none;stroke:#FFE08A;stroke-linecap:round;stroke-dasharray:2 7;opacity:.9}
+.m-beam{stroke-width:2.2}.d-beam{stroke-width:2.4}
+.heroFrame .hero-actions{flex-wrap:nowrap;width:max-content}.heroFrame .hero-actions .btn.hb{padding:12px 16px;gap:7px}
+.mobileHormones{margin:4px 0 2px}.mh{min-height:40px;gap:2px}.mh svg{width:28px;height:28px}
+/* Shorter phones (most phones once the browser bars are showing): give the artwork the room instead of the location line */
+@media(max-width:599px) and (max-height:800px){.mobileIntro>p.hero-where:not(.mfocus):not(.m-title):not(.open-to){display:none}.mobileIntro>p:not(.mfocus):not(.m-title):not(.open-to):not(.hero-where){font-size:13.5px!important;line-height:1.38!important;margin:6px 0 9px!important}.mobileHero .mobileIntro>p.m-title{font-size:29px;margin:6px 0}.mh-note{font-size:10.5px;line-height:1.3}}
