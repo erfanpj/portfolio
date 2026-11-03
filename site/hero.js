@@ -71,50 +71,55 @@
     matchMedia('(min-width:1025px)').addEventListener('change',e=>{if(e.matches)dismiss();});
   }
 
-  // The light cone and the beam into step 1 are aimed from where the forehead lens and the zoom circle really are,
-  // so they stay correct when the layout or the artwork scale changes. The HTML carries the same result as a fallback.
+  // The light cone and the beam into step 1 are aimed from where the forehead lens, the zoom circle and step 1 really are.
+  // All three anchors are converted into the drawing's own user space (the SVG viewBox), so the result is independent of
+  // CSS scaling. The HTML carries the same result for the phone layout as a no-JavaScript fallback.
   const fmt=n=>Math.round(n*10)/10;
   function aim(svg,eye,ring,pin,{cone,edge,beam,grad}){
     const ctm=svg.getScreenCTM(),rc=ring.getScreenCTM(),pc=pin.getScreenCTM();if(!ctm||!rc||!pc)return;
-    const inv=ctm.inverse(),pt=(m,x,y)=>new DOMPoint(x,y).matrixTransform(inv.multiply(m));
-    const c=pt(rc,+ring.getAttribute('cx'),+ring.getAttribute('cy')),r=290*Math.hypot(inv.multiply(rc).a,inv.multiply(rc).b);
-    const p=pt(pc,+pin.getAttribute('cx'),+pin.getAttribute('cy')),pr=+pin.getAttribute('r')*Math.hypot(inv.multiply(pc).a,inv.multiply(pc).b);
+    const inv=ctm.inverse(),local=m=>inv.multiply(m),pt=(m,x,y)=>new DOMPoint(x,y).matrixTransform(local(m)),scale=m=>Math.hypot(local(m).a,local(m).b);
+    const c=pt(rc,+ring.getAttribute('cx'),+ring.getAttribute('cy')),r=290*scale(rc);
+    const p=pt(pc,+pin.getAttribute('cx'),+pin.getAttribute('cy')),pr=+pin.getAttribute('r')*scale(pc);
     const e=eye(inv);if(!e)return;
     const dx=c.x-e.x,dy=c.y-e.y,d=Math.hypot(dx,dy);if(d<=r)return;
     const base=Math.atan2(dy,dx),half=Math.asin(r/d),len=Math.sqrt(d*d-r*r);
     const t1=[e.x+len*Math.cos(base-half),e.y+len*Math.sin(base-half)],t2=[e.x+len*Math.cos(base+half),e.y+len*Math.sin(base+half)];
     const E=[fmt(e.x),fmt(e.y)].join(','),A=t1.map(fmt).join(','),B=t2.map(fmt).join(',');
     cone.setAttribute('d',`M${E} L${A} L${B} Z`);edge.setAttribute('d',`M${A} L${E} L${B}`);
-    const bx=p.x-e.x,by=p.y-e.y,bl=Math.hypot(bx,by);beam.setAttribute('d',`M${E} L${fmt(p.x-bx/bl*pr)},${fmt(p.y-by/bl*pr)}`);
+    const bx=p.x-e.x,by=p.y-e.y,bl=Math.hypot(bx,by);
+    beam.setAttribute('d',`M${fmt(e.x+bx/bl*e.r)},${fmt(e.y+by/bl*e.r)} L${fmt(p.x-bx/bl*pr)},${fmt(p.y-by/bl*pr)}`);
     [['x1',e.x],['y1',e.y],['x2',c.x],['y2',c.y]].forEach(([n,v])=>grad.setAttribute(n,fmt(v)));
   }
   const scene=document.querySelector('#hero-scene .d-lens')?.ownerSVGElement;
   const aimDesktop=()=>{const eye=document.querySelector('.d-eye');if(!scene||!eye||!frame?.clientWidth)return;
-    aim(scene,()=>({x:eye.offsetLeft+eye.offsetWidth/2,y:eye.offsetTop+eye.offsetHeight/2}),scene.querySelector('.d-lens .okring'),scene.querySelector('.d-lens .pin0'),
-      {cone:scene.querySelector('.d-cone'),edge:scene.querySelector('.d-cone-edge'),beam:scene.querySelector('.d-beam'),grad:document.getElementById('cg')});};
-  aimDesktop();matchMedia('(min-width:1025px)').addEventListener('change',aimDesktop);
-  // Phones get the diagonal illustration from the HTML; two-column tablet and landscape layouts use the stacked artwork.
+    // the eye is an absolutely positioned image in the 1440x900 scene, which is also the SVG's viewBox space
+    aim(scene,()=>({x:eye.offsetLeft+eye.offsetWidth/2,y:eye.offsetTop+eye.offsetHeight/2,r:eye.offsetWidth/2}),scene.querySelector('.d-lens .okring'),scene.querySelector('.d-lens .pin0'),
+      {cone:scene.querySelector('.d-cone'),edge:scene.querySelector('.d-cone-edge'),beam:document.querySelector('.d-beam'),grad:document.getElementById('cg')});};
+  // Phones get the diagonal artwork from the HTML; two-column tablet and landscape layouts use a taller diagonal.
   const signal=document.querySelector('.mobileSignal');
-  if(signal){
-    const art={"phone":{"v":"0 0 360 260","a":"translate(-54.9,-165.8) scale(0.47)","l":"translate(157.4 1) scale(0.34)"},"stack":{"v":"0 0 360 465","a":"translate(-43.8,-226) scale(0.46)","l":"translate(84 189) scale(0.46)"}};
-    const twoColumn=matchMedia('(min-width:600px) and (max-width:1024px), (min-width:475px) and (max-height:550px) and (max-width:1024px)');
-    const q=c=>signal.querySelector(c);
-    const aimPhone=()=>{const eye=q('.m-eye');aim(signal,inv=>{const m=eye.getScreenCTM();return m&&new DOMPoint(+eye.getAttribute('x')+26,+eye.getAttribute('y')+26).matrixTransform(inv.multiply(m));},q('.m-lens .okring'),q('.m-lens .pin0'),
-      {cone:q('.m-cone'),edge:q('.m-cone-edge'),beam:q('.m-beam'),grad:q('.m-cone-grad')});};
-    const arrange=()=>{const k=twoColumn.matches?'stack':'phone';if(signal.dataset.layout!==k){const v=art[k];
+  const art={"phone":{"v":"0 0 360 300","a":"translate(-61,-143.9) scale(0.49)","l":"translate(156.8 -2) scale(0.342)"},"stack":{"v":"0 0 360 430","a":"translate(-67.2,-68.3) scale(0.55)","l":"translate(127.6 -1.6) scale(0.39)"}};
+  const twoColumn=matchMedia('(min-width:600px) and (max-width:1024px), (min-width:475px) and (max-height:550px) and (max-width:1024px)');
+  const aimPhone=()=>{if(!signal)return;const q=c=>signal.querySelector(c),eye=q('.m-eye');
+    const k=twoColumn.matches?'stack':'phone';if(signal.dataset.layout!==k){const v=art[k];
       signal.setAttribute('viewBox',v.v);q('.m-av').setAttribute('transform',v.a);q('.m-lens').setAttribute('transform',v.l);signal.dataset.layout=k;}
-      aimPhone();};
-    twoColumn.addEventListener('change',arrange);matchMedia('(max-width:1024px)').addEventListener('change',arrange);arrange();
-  }
-  // Hero buttons: icon + label, with an explanation on hover, keyboard focus or a long press (a normal tap still follows the link).
+    aim(signal,inv=>{const m=eye.getScreenCTM();if(!m)return null;const loc=inv.multiply(m),c=new DOMPoint(+eye.getAttribute('x')+26,+eye.getAttribute('y')+26).matrixTransform(loc);c.r=26*Math.hypot(loc.a,loc.b);return c;},
+      q('.m-lens .okring'),q('.m-lens .pin0'),{cone:q('.m-cone'),edge:q('.m-cone-edge'),beam:q('.m-beam'),grad:q('.m-cone-grad')});};
+  // Recompute on any viewport or layout change, at most once per frame.
+  let queued=0;
+  const reaim=()=>{if(queued)return;queued=requestAnimationFrame(()=>{queued=0;aimDesktop();aimPhone();});};
+  reaim();
+  twoColumn.addEventListener('change',reaim);matchMedia('(max-width:1024px)').addEventListener('change',reaim);
+  addEventListener('resize',reaim);addEventListener('orientationchange',reaim);window.visualViewport?.addEventListener('resize',reaim);
+  document.fonts?.ready.then(reaim);
+  if('ResizeObserver' in window){const ro=new ResizeObserver(reaim);[signal,frame,document.querySelector('#hero-scene')].forEach(n=>n&&ro.observe(n));}
+  // Hero buttons: icon + label, with an explanation on hover or keyboard focus (and during a long press, without
+  // blocking the browser's own link preview). Escape closes it; taps and native link actions are untouched.
   const heroButtons=[...document.querySelectorAll('a.hb')];
   heroButtons.forEach(b=>{
-    let timer=0,held=false;
-    b.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse')return;held=false;clearTimeout(timer);
-      timer=setTimeout(()=>{held=true;heroButtons.forEach(o=>o!==b&&o.removeAttribute('data-tip'));b.dataset.tip='open';},450);});
-    for(const t of ['pointerup','pointercancel','pointerleave'])b.addEventListener(t,()=>clearTimeout(timer));
-    b.addEventListener('click',e=>{if(held){e.preventDefault();held=false;}});
-    b.addEventListener('contextmenu',e=>{if(held||b.dataset.tip==='open')e.preventDefault();});
+    let timer=0;
+    b.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse')return;clearTimeout(timer);
+      timer=setTimeout(()=>{heroButtons.forEach(o=>o!==b&&o.removeAttribute('data-tip'));b.dataset.tip='open';},450);},{passive:true});
+    for(const t of ['pointerup','pointercancel'])b.addEventListener(t,()=>clearTimeout(timer),{passive:true});
     for(const t of ['focus','pointerenter'])b.addEventListener(t,()=>{if(b.dataset.tip==='closed')b.removeAttribute('data-tip');});
     b.addEventListener('blur',()=>b.removeAttribute('data-tip'));
   });
