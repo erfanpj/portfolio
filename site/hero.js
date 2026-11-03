@@ -83,7 +83,7 @@
     twoColumn.addEventListener('change',arrange);arrange();
   }
   const phoneMotifs=[...document.querySelectorAll('.mobileChem button')];
-  const desktopMotifs=[...document.querySelectorAll('.hor2')];
+  const desktopMotifs=[...document.querySelectorAll('.hor2,.mobileHormones .mh')];
   const note=document.querySelector('#mobile-motif-note');
   function clearMotifs(){
     for(const b of [...desktopMotifs,...phoneMotifs]) {
@@ -99,14 +99,17 @@
     const msg=source ? [...source.childNodes].filter(n=>n.nodeType===Node.TEXT_NODE).map(n=>n.textContent).join('').trim() : '';
     if(!msg)return;note.textContent=msg;note.hidden=false;b.setAttribute('aria-expanded','true');
   }));
+  // Icon tooltips open on hover, tap or keyboard focus; Escape, blur or a second tap closes them.
+  const openMotif=b=>{clearMotifs();b.dataset.open='true';delete b.dataset.dismissed;b.setAttribute('aria-expanded','true');};
   desktopMotifs.forEach(b=>{
+    let focusedAt=0;
+    b.addEventListener('focus',()=>{focusedAt=Date.now();openMotif(b);});
     b.addEventListener('click',()=>{
-      const open=b.dataset.open==='true';clearMotifs();
-      if(!open){b.dataset.open='true';delete b.dataset.dismissed;b.setAttribute('aria-expanded','true');}
+      if(b.dataset.open==='true'&&Date.now()-focusedAt>400)clearMotifs(); else openMotif(b);
     });
-    for(const type of ['pointerenter','focus']) b.addEventListener(type,()=>{delete b.dataset.dismissed;});
+    b.addEventListener('pointerenter',()=>{delete b.dataset.dismissed;});
     b.addEventListener('blur', clearMotifs);
   });
-  document.addEventListener('click',e=>{if(!e.target.closest('.hor2,.mobileChem,#mobile-motif-note'))clearMotifs();});
+  document.addEventListener('click',e=>{if(!e.target.closest('.hor2,.mobileHormones,.mobileChem,#mobile-motif-note'))clearMotifs();});
   document.addEventListener('keydown',e=>{if(e.key==='Escape')clearMotifs();});
 })();

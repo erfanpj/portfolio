@@ -49,15 +49,22 @@
 @media(max-width:360px){.mobileIntro>p.hero-where:not(.mfocus):not(.m-title):not(.open-to){display:none}}
 @media(max-width:599px){.mobileHero{height:min(820px,calc(100svh - var(--mast-height) - 6px))}}
 .mobileHero .mobileFigure{grid-template-rows:minmax(0,1fr) auto auto}
-.mobileHormones{list-style:none;margin:6px 0 6px;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
-.mh{display:flex;flex-direction:column;align-items:center;gap:3px;font:600 12px/1.2 'Familjen Grotesk','DM Sans',sans-serif;color:var(--light);opacity:.55;animation-duration:20s}
-.mh svg{width:30px;height:30px;padding:3px;box-sizing:border-box;border:1px solid #F2A541;border-radius:50%;background:#1C1A21}
+.mobileHormones{list-style:none;margin:6px 0 4px;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;position:relative}
+.mh{display:flex;flex-direction:column;align-items:center;gap:3px;width:100%;min-height:44px;padding:2px 0;border:0;border-radius:8px;background:none;cursor:pointer;font:600 12px/1.2 'Familjen Grotesk','DM Sans',sans-serif;color:var(--light)}
+.mh svg{width:30px;height:30px;padding:3px;box-sizing:border-box;border:1px solid #F2A541;border-radius:50%;background:#1C1A21;opacity:.55;animation-duration:20s}
+.mh:focus-visible{outline:3px solid var(--focus-dark,#F2A541);outline-offset:2px}
+.mh .tip{position:absolute;left:0;right:0;bottom:calc(100% + 8px);z-index:6;display:none;padding:10px 12px;border-radius:10px;background:#EDE9E3;color:#16151A;text-align:left;font:400 14px/1.42 'DM Sans',sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.45)}
+.mh .tip strong{display:block;font:600 15px/1.3 'Familjen Grotesk',sans-serif}
+.mh:hover .tip,.mh:focus-visible .tip,.mh[data-open=true] .tip{display:block}.mh[data-dismissed=true] .tip{display:none}
+.mh[data-open=true] svg{opacity:1}
 .mh0{animation-name:mh0}@keyframes mh0{0%,80%{opacity:.55}83%,95%{opacity:1}99%,100%{opacity:.55}}
 .mh1{animation-name:mh1}@keyframes mh1{0%,83%{opacity:.55}86%,95%{opacity:1}99%,100%{opacity:.55}}
 .mh2{animation-name:mh2}@keyframes mh2{0%,86%{opacity:.55}89%,95%{opacity:1}99%,100%{opacity:.55}}
 .mh3{animation-name:mh3}@keyframes mh3{0%,89%{opacity:.55}92%,95%{opacity:1}99%,100%{opacity:.55}}
-.still .mh{opacity:1}
-@media(prefers-reduced-motion:reduce){.mh{animation:none!important;opacity:1}}
+.still .mh svg{opacity:1}
+@media(prefers-reduced-motion:reduce){.mh svg{animation:none!important;opacity:1}}
+.mh-note{margin:0 0 6px;font:400 11.5px/1.35 'DM Sans',sans-serif;color:#A8A39B;text-align:center}
+.contact-availability{font-weight:600;color:var(--light,#EDE9E3)}
 .heroFrame .hlab:not(.illustration-note) span{display:block;white-space:nowrap;margin:0 -20px;font-size:12.5px}
-@media(max-width:599px) and (max-height:720px){.mobileHormones{margin:4px 0}.mh{font-size:11px;gap:2px}.mh svg{width:24px;height:24px;padding:2px}}
-@media(max-width:599px) and (max-height:600px){.mobileHormones{display:none}}
+@media(max-width:599px) and (max-height:720px){.mobileHormones{margin:4px 0}.mh{font-size:11px;gap:2px;min-height:40px}.mh svg{width:24px;height:24px;padding:2px}.mh-note{font-size:11px;margin-bottom:4px}}
+@media(max-width:599px) and (max-height:600px){.mobileHormones,.mh-note{display:none}}
