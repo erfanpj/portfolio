@@ -71,6 +71,17 @@
     matchMedia('(min-width:1025px)').addEventListener('change',e=>{if(e.matches)dismiss();});
   }
 
+  // Phones get the wide side-by-side illustration from the HTML; two-column tablet and landscape layouts keep the stacked artwork.
+  const signal=document.querySelector('.mobileSignal');
+  if(signal){
+    const art={phone:{v:"0 0 360 258",a:"translate(-58,-149.7) scale(0.45)",l:"translate(108.5 3) scale(0.42)",c:"M90.5,96.9 L151.31,40.04 L121.4,174.21 Z",e:"M151.31,40.04 L90.5,96.9 L121.4,174.21",g:["90.5","96.9","234.5","129"]},stack:{v:"0 0 360 465",a:"translate(-60,-247) scale(0.52)",l:"translate(58 167) scale(0.49)",c:"M111.6,37.96 L300.31,208.6 L65.28,288.13 Z",e:"M300.31,208.6 L111.6,37.96 L65.28,288.13",g:["111.6", "37.96", "205", "314"]}};
+    const twoColumn=matchMedia('(min-width:600px) and (max-width:1024px), (min-width:475px) and (max-height:550px) and (max-width:1024px)');
+    const q=c=>signal.querySelector(c);
+    const arrange=()=>{const k=twoColumn.matches?'stack':'phone';if(signal.dataset.layout===k)return;const v=art[k],g=q('.m-cone-grad');
+      signal.setAttribute('viewBox',v.v);q('.m-av').setAttribute('transform',v.a);q('.m-lens').setAttribute('transform',v.l);q('.m-cone').setAttribute('d',v.c);q('.m-cone-edge').setAttribute('d',v.e);
+      ['x1','y1','x2','y2'].forEach((n,i)=>g.setAttribute(n,v.g[i]));signal.dataset.layout=k;};
+    twoColumn.addEventListener('change',arrange);arrange();
+  }
   const phoneMotifs=[...document.querySelectorAll('.mobileChem button')];
   const desktopMotifs=[...document.querySelectorAll('.hor2')];
   const note=document.querySelector('#mobile-motif-note');
